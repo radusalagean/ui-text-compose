@@ -1,0 +1,51 @@
+# === Android Studio & IntelliJ ===
+.idea/*
+!.idea/codeStyles
+!.idea/inspectionProfiles
+!.idea/misc.xml
+!.idea/modules.xml
+!.idea/runConfigurations
+
+# Ignore user-specific files
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries/
+.idea/.name
+
+# === Project files ===
+*.iml
+.gradle
+/local.properties
+/.gradle
+/captures
+/build
+/buildSrc/build/
+
+# === OS-specific files ===
+.DS_Store
+Thumbs.db
+
+# === Log files ===
+*.log
+
+# === Keystore files (if present) ===
+*.jks
+*.keystore
+
+# === Crashlytics/Fabric ===
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# === NDK / CMake / External Native Build ===
+.externalNativeBuild
+
+# === Others ===
+/outputs/
+*.apk
+*.ap_
+*.aab
+
+# === Kotlin/Jetpack Compose build cache ===
+/.kotlinc/
+.kotlin
