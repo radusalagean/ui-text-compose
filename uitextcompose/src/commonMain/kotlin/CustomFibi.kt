@@ -1,4 +1,4 @@
-package io.github.kotlin.fibonacci
+package com.radusalagean.uitextcompose
 
 fun generateFibi() = sequence {
     var a = firstElement
