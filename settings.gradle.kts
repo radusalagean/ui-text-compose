@@ -1,3 +1,5 @@
+rootProject.name = "ui-text-compose"
+
 pluginManagement {
     repositories {
         google()
@@ -13,5 +15,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ui-text-compose"
 include(":uitextcompose")
+include(":uitextcompose-sample")
