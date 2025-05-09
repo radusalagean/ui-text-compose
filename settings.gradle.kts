@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ui-text-compose"
-include(":library")
+include(":uitextcompose")
