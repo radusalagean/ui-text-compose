@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-group = "io.github.kotlin"
+group = "com.radusalagean"
 version = "1.0.0"
 
 kotlin {
@@ -40,7 +40,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.jetbrains.kotlinx.multiplatform.library.template"
+    namespace = "com.radusalagean.uitextcompose"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -56,31 +56,31 @@ mavenPublishing {
 
     signAllPublications()
 
-    coordinates(group.toString(), "library", version.toString())
+    coordinates(group.toString(), "ui-text-compose", version.toString())
 
     pom {
-        name = "My library"
-        description = "A library."
-        inceptionYear = "2024"
-        url = "https://github.com/kotlin/multiplatform-library-template/"
+        name = "UIText Compose"
+        description = "KMP library for plain or styled text in Compose apps, with I18N/L10N support via String Resources."
+        inceptionYear = "2025"
+        url = "https://github.com/radusalagean/ui-text-compose"
         licenses {
             license {
-                name = "XXX"
-                url = "YYY"
-                distribution = "ZZZ"
+                name = "The Apache Software License, Version 2.0"
+                url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution = "repo"
             }
         }
         developers {
             developer {
-                id = "XXX"
-                name = "YYY"
-                url = "ZZZ"
+                id = "radusalagean"
+                name = "Radu Salagean"
+                url = "https://github.com/radusalagean"
             }
         }
         scm {
-            url = "XXX"
-            connection = "YYY"
-            developerConnection = "ZZZ"
+            url = "https://github.com/radusalagean/ui-text-compose"
+            connection = "scm:git:git://github.com/radusalagean/ui-text-compose"
+            developerConnection = "scm:git:ssh://git@github.com/radusalagean/ui-text-compose"
         }
     }
 }
