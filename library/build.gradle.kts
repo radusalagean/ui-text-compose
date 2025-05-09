@@ -60,7 +60,7 @@ mavenPublishing {
 
     pom {
         name = "UIText Compose"
-        description = "KMP library for plain or styled text in Compose apps, with I18N/L10N support via String Resources."
+        description = "KMP library for plain or styled text in Compose apps, with support for String Resources."
         inceptionYear = "2025"
         url = "https://github.com/radusalagean/ui-text-compose"
         licenses {
