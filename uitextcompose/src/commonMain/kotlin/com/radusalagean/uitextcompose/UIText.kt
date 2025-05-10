@@ -17,7 +17,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
 
-sealed class UIText {
+public sealed class UIText {
 
     protected abstract suspend fun build(): CharSequence
 
@@ -36,7 +36,7 @@ sealed class UIText {
         }
     }
 
-    suspend fun buildString(): String {
+    private suspend fun buildString(): String {
         return when (val charSequence = build()) {
             is String -> charSequence
             is AnnotatedString -> charSequence.toString() // We drop any style here
@@ -45,14 +45,14 @@ sealed class UIText {
     }
 
     @Composable
-    fun buildStringComposable(): String { // TODO Rename
+    public fun buildStringComposable(): String { // TODO Rename
         val string by rememberResourceState({ "" }) {
             buildString()
         }
         return string
     }
 
-    suspend fun buildAnnotatedString(): AnnotatedString {
+    private suspend fun buildAnnotatedString(): AnnotatedString {
         return when (val charSequence = build()) {
             is String -> AnnotatedString(charSequence)
             is AnnotatedString -> charSequence
@@ -61,7 +61,7 @@ sealed class UIText {
     }
 
     @Composable
-    fun buildAnnotatedStringComposable(): AnnotatedString { // TODO Rename
+    public fun buildAnnotatedStringComposable(): AnnotatedString { // TODO Rename
         val annotatedString by rememberResourceState({ AnnotatedString("") }) {
             buildAnnotatedString()
         }
@@ -75,7 +75,7 @@ sealed class UIText {
         }
     }
 
-    protected suspend fun resolveArg(arg: Any) = when (arg) {
+    protected suspend fun resolveArg(arg: Any): Any = when (arg) {
         is UIText -> arg.build()
         else -> arg
     }
@@ -176,21 +176,20 @@ sealed class UIText {
                         applyAnnotation(index + 1)
                     }
                 }
-                else -> { }
             }
         }
 
         applyAnnotation(0)
     }
 
-    class Raw(val text: CharSequence) : UIText() {
+    internal class Raw(val text: CharSequence) : UIText() {
 
         override suspend fun build(): CharSequence {
             return text
         }
     }
 
-    class Res(
+    internal class Res(
         val stringResource: StringResource,
         val args: List<Pair<Any, List<UITextAnnotation>>>,
         val baseAnnotations: List<UITextAnnotation>
@@ -223,7 +222,7 @@ sealed class UIText {
         }
     }
 
-    class PluralRes(
+    internal class PluralRes(
         val pluralStringResource: PluralStringResource,
         val quantity: Int,
         val args: List<Pair<Any, List<UITextAnnotation>>>,
@@ -259,7 +258,7 @@ sealed class UIText {
         }
     }
 
-    class Compound(
+    internal class Compound(
         val components: List<UIText>
     ) : UIText() {
 
@@ -292,7 +291,7 @@ sealed class UIText {
         }
     }
 
-    companion object {
+    private companion object {
         private val placeholderRegex = Regex("\\$\\{(\\d+)\\}")
     }
 }

@@ -47,6 +47,7 @@ kotlin {
             }
         }
     }
+    explicitApi()
 }
 
 android {

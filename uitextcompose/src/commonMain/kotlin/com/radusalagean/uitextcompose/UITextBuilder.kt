@@ -7,19 +7,19 @@ import org.jetbrains.compose.resources.PluralStringResource
 import org.jetbrains.compose.resources.StringResource
 
 @DslMarker
-annotation class UITextDslMarker
+internal annotation class UITextDslMarker
 
-fun UIText(block: UITextBuilder.() -> Unit): UIText = UITextBuilder().apply(block).build()
+public fun UIText(block: UITextBuilder.() -> Unit): UIText = UITextBuilder().apply(block).build()
 
 @UITextDslMarker
-class UITextBuilder {
+public class UITextBuilder {
     private val components = mutableListOf<UIText>()
 
-    fun raw(text: CharSequence) {
+    public fun raw(text: CharSequence) {
         components += UIText.Raw(text)
     }
 
-    fun res(
+    public fun res(
         stringResource: StringResource,
         resBuilder: ResBuilder.() -> Unit = { }
     ) {
@@ -31,7 +31,7 @@ class UITextBuilder {
         )
     }
 
-    fun pluralRes(
+    public fun pluralRes(
         pluralStringResource: PluralStringResource,
         quantity: Int,
         resBuilder: ResBuilder.() -> Unit = {
@@ -55,45 +55,45 @@ class UITextBuilder {
 }
 
 @UITextDslMarker
-class ResBuilder : AnnotationsBuilder() {
+public class ResBuilder : AnnotationsBuilder() {
     private val args = mutableListOf<Pair<Any, List<UITextAnnotation>>>()
 
-    fun arg(value: CharSequence, annotationsBuilder: AnnotationsBuilder.() -> Unit = { }) {
+    public fun arg(value: CharSequence, annotationsBuilder: AnnotationsBuilder.() -> Unit = { }) {
         val annotations = AnnotationsBuilder().apply(annotationsBuilder).buildAnnotations()
         args += value to annotations
     }
 
-    fun arg(value: UIText, annotationsBuilder: AnnotationsBuilder.() -> Unit = { }) {
+    public fun arg(value: UIText, annotationsBuilder: AnnotationsBuilder.() -> Unit = { }) {
         val annotations = AnnotationsBuilder().apply(annotationsBuilder).buildAnnotations()
         args += value to annotations
     }
 
-    fun buildResConfig(): ResAnnotatedConfig = ResAnnotatedConfig(
+    public fun buildResConfig(): ResAnnotatedConfig = ResAnnotatedConfig(
         annotations = annotations,
         args = args
     )
 }
 
-class ResAnnotatedConfig(
-    val annotations: List<UITextAnnotation>,
-    val args: List<Pair<Any, List<UITextAnnotation>>>
+public class ResAnnotatedConfig(
+    internal val annotations: List<UITextAnnotation>,
+    internal val args: List<Pair<Any, List<UITextAnnotation>>>
 )
 
 @UITextDslMarker
-open class AnnotationsBuilder {
-    protected val annotations = mutableListOf<UITextAnnotation>()
+public open class AnnotationsBuilder {
+    internal val annotations: MutableList<UITextAnnotation> = mutableListOf()
 
-    operator fun SpanStyle.unaryPlus() {
+    public operator fun SpanStyle.unaryPlus() {
         annotations.add(UITextAnnotation.Span(this))
     }
 
-    operator fun ParagraphStyle.unaryPlus() {
+    public operator fun ParagraphStyle.unaryPlus() {
         annotations.add(UITextAnnotation.Paragraph(this))
     }
 
-    operator fun LinkAnnotation.unaryPlus() {
+    public operator fun LinkAnnotation.unaryPlus() {
         annotations.add(UITextAnnotation.Link(this))
     }
 
-    fun buildAnnotations(): List<UITextAnnotation> = annotations
+    public fun buildAnnotations(): List<UITextAnnotation> = annotations
 }

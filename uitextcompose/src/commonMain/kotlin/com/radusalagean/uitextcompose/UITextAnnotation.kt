@@ -5,20 +5,20 @@ import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import kotlin.jvm.JvmInline
 
-sealed interface UITextAnnotation {
+public sealed interface UITextAnnotation {
 
     @JvmInline
-    value class Span(
-        val spanStyle: SpanStyle
+    public value class Span(
+        internal val spanStyle: SpanStyle
     ) : UITextAnnotation
 
     @JvmInline
-    value class Paragraph(
-        val paragraphStyle: ParagraphStyle
+    public value class Paragraph(
+        internal val paragraphStyle: ParagraphStyle
     ) : UITextAnnotation
 
     @JvmInline
-    value class Link(
-        val linkAnnotation: LinkAnnotation
+    public value class Link(
+        internal val linkAnnotation: LinkAnnotation
     ) : UITextAnnotation
 }
