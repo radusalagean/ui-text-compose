@@ -68,13 +68,13 @@ public class ResBuilder : AnnotationsBuilder() {
         args += value to annotations
     }
 
-    public fun buildResConfig(): ResAnnotatedConfig = ResAnnotatedConfig(
+    public fun buildResConfig(): ResConfig = ResConfig(
         annotations = annotations,
         args = args
     )
 }
 
-public class ResAnnotatedConfig(
+public class ResConfig(
     internal val annotations: List<UITextAnnotation>,
     internal val args: List<Pair<Any, List<UITextAnnotation>>>
 )
