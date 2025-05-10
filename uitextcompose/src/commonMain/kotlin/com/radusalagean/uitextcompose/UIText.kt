@@ -183,14 +183,14 @@ sealed class UIText {
         applyAnnotation(0)
     }
 
-    data class Raw(val text: CharSequence) : UIText() {
+    class Raw(val text: CharSequence) : UIText() {
 
         override suspend fun build(): CharSequence {
             return text
         }
     }
 
-    data class Res(
+    class Res(
         val stringResource: StringResource,
         val args: List<Pair<Any, List<UITextAnnotation>>>,
         val baseAnnotations: List<UITextAnnotation>
@@ -223,7 +223,7 @@ sealed class UIText {
         }
     }
 
-    data class PluralRes(
+    class PluralRes(
         val pluralStringResource: PluralStringResource,
         val quantity: Int,
         val args: List<Pair<Any, List<UITextAnnotation>>>,
@@ -259,7 +259,7 @@ sealed class UIText {
         }
     }
 
-    data class Compound(
+    class Compound(
         val components: List<UIText>
     ) : UIText() {
 

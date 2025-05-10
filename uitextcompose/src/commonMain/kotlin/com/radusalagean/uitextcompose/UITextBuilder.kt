@@ -74,7 +74,7 @@ class ResBuilder : AnnotationsBuilder() {
     )
 }
 
-data class ResAnnotatedConfig(
+class ResAnnotatedConfig(
     val annotations: List<UITextAnnotation>,
     val args: List<Pair<Any, List<UITextAnnotation>>>
 )
