@@ -18,11 +18,11 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  test:
     strategy:
       matrix:
         include:
-          - target: desktopTest
+          - target: uitextcompose:desktopTest
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
 
