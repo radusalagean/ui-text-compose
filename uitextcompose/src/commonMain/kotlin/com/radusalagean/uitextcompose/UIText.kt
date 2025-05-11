@@ -36,7 +36,7 @@ public sealed class UIText {
         }
     }
 
-    private suspend fun buildString(): String {
+    public suspend fun buildString(): String {
         return when (val charSequence = build()) {
             is String -> charSequence
             is AnnotatedString -> charSequence.toString() // We drop any style here
@@ -45,14 +45,14 @@ public sealed class UIText {
     }
 
     @Composable
-    public fun buildStringComposable(): String { // TODO Rename
+    public fun buildStringComposable(): String {
         val string by rememberResourceState({ "" }) {
             buildString()
         }
         return string
     }
 
-    private suspend fun buildAnnotatedString(): AnnotatedString {
+    public suspend fun buildAnnotatedString(): AnnotatedString {
         return when (val charSequence = build()) {
             is String -> AnnotatedString(charSequence)
             is AnnotatedString -> charSequence
@@ -61,7 +61,7 @@ public sealed class UIText {
     }
 
     @Composable
-    public fun buildAnnotatedStringComposable(): AnnotatedString { // TODO Rename
+    public fun buildAnnotatedStringComposable(): AnnotatedString {
         val annotatedString by rememberResourceState({ AnnotatedString("") }) {
             buildAnnotatedString()
         }

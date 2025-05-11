@@ -22,9 +22,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: testDebugUnitTest
-            os: ubuntu-latest
-          - target: testReleaseUnitTest
+          - target: desktopTest
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
 

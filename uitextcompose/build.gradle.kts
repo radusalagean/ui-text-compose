@@ -15,7 +15,7 @@ group = "com.radusalagean"
 version = "1.0.0"
 
 kotlin {
-    jvm()
+    jvm("desktop")
     androidTarget {
         publishLibraryVariants("release")
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -41,9 +41,11 @@ kotlin {
                 implementation(compose.components.uiToolingPreview)
             }
         }
-        val commonTest by getting {
+        val desktopTest by getting {
             dependencies {
                 implementation(libs.kotlin.test)
+                implementation(compose.desktop.currentOs)
+                implementation(compose.desktop.uiTestJUnit4)
             }
         }
     }
