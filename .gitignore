@@ -5,12 +5,7 @@
 !.idea/misc.xml
 !.idea/modules.xml
 !.idea/runConfigurations
-
-# Ignore user-specific files
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dictionaries/
-.idea/.name
+!.idea/.name
 
 # === Project files ===
 *.iml
@@ -20,6 +15,7 @@
 /captures
 /build
 /buildSrc/build/
+**/build/
 
 # === OS-specific files ===
 .DS_Store
