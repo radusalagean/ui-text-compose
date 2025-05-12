@@ -1,4 +1,4 @@
-package com.radusalagean.uitextcompose
+package com.radusalagean.uitextcompose.kmp
 
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.ParagraphStyle
@@ -10,12 +10,12 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.withLink
-import com.radusalagean.uitextcompose.generated.resources.Res
-import com.radusalagean.uitextcompose.generated.resources.test_res
-import com.radusalagean.uitextcompose.generated.resources.test_res_with_arg
-import com.radusalagean.uitextcompose.generated.resources.test_plural
-import com.radusalagean.uitextcompose.generated.resources.test_res_with_multiple_args
-import com.radusalagean.uitextcompose.generated.resources.test_plural_with_multiple_args
+import com.radusalagean.uitextcompose_kmp.generated.resources.Res
+import com.radusalagean.uitextcompose_kmp.generated.resources.test_res
+import com.radusalagean.uitextcompose_kmp.generated.resources.test_res_with_arg
+import com.radusalagean.uitextcompose_kmp.generated.resources.test_plural
+import com.radusalagean.uitextcompose_kmp.generated.resources.test_res_with_multiple_args
+import com.radusalagean.uitextcompose_kmp.generated.resources.test_plural_with_multiple_args
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import kotlin.test.Test

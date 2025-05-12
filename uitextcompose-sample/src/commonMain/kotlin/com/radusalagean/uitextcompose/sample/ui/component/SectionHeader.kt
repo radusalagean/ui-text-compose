@@ -4,7 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.radusalagean.uitextcompose.UIText
+import com.radusalagean.uitextcompose.kmp.UIText
 
 @Composable
 fun SectionHeader(

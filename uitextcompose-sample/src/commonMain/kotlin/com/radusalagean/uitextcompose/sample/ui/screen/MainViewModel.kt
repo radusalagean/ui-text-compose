@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModel
 import com.radusalagean.uitextcompose.sample.ui.component.ExampleEntryModel
 import com.radusalagean.uitextcompose.sample.ui.component.LanguageOption
 import com.radusalagean.uitextcompose.sample.ui.theme.CustomGreen
-import com.radusalagean.uitextcompose.UIText
+import com.radusalagean.uitextcompose.kmp.UIText
 import com.radusalagean.uitextcompose.sample.util.LanguageManager
 import ui_text_compose.uitextcompose_sample.generated.resources.Res
 import ui_text_compose.uitextcompose_sample.generated.resources.greeting

@@ -1,12 +1,13 @@
+import com.radusalagean.uitextcompose.Config
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -31,7 +32,6 @@ kotlin {
     
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        outputModuleName.set("uitextcompose-sample")
         browser {
             val rootDirPath = project.rootDir.path
             val projectDirPath = project.projectDir.path
@@ -58,7 +58,7 @@ kotlin {
             implementation(libs.androidx.appcompat)
         }
         commonMain.dependencies {
-            implementation(project(":uitextcompose"))
+            implementation(project(":uitextcompose-kmp"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -81,15 +81,15 @@ kotlin {
 }
 
 android {
-    namespace = "com.radusalagean.uitextcompose.sample"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    namespace = "${Config.rootPackage}.sample"
+    compileSdk = Config.compileSdk
 
     defaultConfig {
-        applicationId = "com.radusalagean.uitextcompose.sample"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0.0"
+        applicationId = "${Config.rootPackage}.sample"
+        minSdk = Config.minSdk
+        targetSdk = Config.targetSdk
+        versionCode = Config.versionCode
+        versionName = Config.versionName
     }
     packaging {
         resources {

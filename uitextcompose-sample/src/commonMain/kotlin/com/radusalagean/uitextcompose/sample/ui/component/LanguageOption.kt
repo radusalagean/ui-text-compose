@@ -1,6 +1,6 @@
 package com.radusalagean.uitextcompose.sample.ui.component
 
-import com.radusalagean.uitextcompose.UIText
+import com.radusalagean.uitextcompose.kmp.UIText
 
 data class LanguageOption(
     val uiText: UIText,

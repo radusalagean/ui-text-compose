@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.radusalagean.uitextcompose.UIText
+import com.radusalagean.uitextcompose.kmp.UIText
 
 @Composable
 fun Section(

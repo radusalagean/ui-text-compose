@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">UIText Compose Sample</string>
+    <string name="app_name" translatable="false">UIText Compose Sample KMP</string>
 
     <string name="section_title_language">Language</string>
     <string name="language_english">English</string>

@@ -1,4 +1,4 @@
-package com.radusalagean.uitextcompose
+package com.radusalagean.uitextcompose.core
 
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.ParagraphStyle
@@ -21,4 +21,4 @@ public sealed interface UITextAnnotation {
     public value class Link(
         internal val linkAnnotation: LinkAnnotation
     ) : UITextAnnotation
-}
+} 

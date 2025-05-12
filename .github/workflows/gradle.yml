@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: uitextcompose:desktopTest
+          - target: uitextcompose-kmp:desktopTest
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
 
