@@ -24,11 +24,16 @@ jobs:
         include:
           - target: uitextcompose-kmp:desktopTest
             os: ubuntu-latest
+          - target: uitextcompose-android:connectedAndroidTest
+            os: ubuntu-latest
+
     runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: Install dependencies
+      if: matrix.target == 'uitextcompose-kmp:desktopTest'
       run: |
         sudo apt-get update
         sudo apt-get install -y \
@@ -36,19 +41,45 @@ jobs:
           xvfb \
           libxtst6 \
           libxi6
-    - name: Validate Gradle Wrapper
-      uses: gradle/actions/wrapper-validation@v3
-    - uses: actions/cache@v3
-      with:
-        path: |
-          ~/.konan
-        key: ${{ runner.os }}-${{ hashFiles('**/.lock') }}
+
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
+
+    - name: Setup Android SDK
+      if: matrix.target == 'uitextcompose-android:connectedAndroidTest'
+      uses: android-actions/setup-android@v3
+      with:
+        log-accepted-android-sdk-licenses: false
+
+    - name: Setup Android Emulator
+      if: matrix.target == 'uitextcompose-android:connectedAndroidTest'
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 35
+        target: google_apis
+        arch: x86_64
+        profile: Nexus 6
+        script: echo "Emulator started"
+
+    - name: Validate Gradle Wrapper
+      uses: gradle/actions/wrapper-validation@v3
+
+    - uses: actions/cache@v3
+      with:
+        path: |
+          ~/.konan
+        key: ${{ runner.os }}-${{ hashFiles('**/.lock') }}
+
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
+
     - name: Execute Gradle test
+      if: matrix.target == 'uitextcompose-kmp:desktopTest'
       run: xvfb-run ./gradlew ${{ matrix.target }}
+
+    - name: Execute Android test
+      if: matrix.target == 'uitextcompose-android:connectedAndroidTest'
+      run: ./gradlew ${{ matrix.target }}

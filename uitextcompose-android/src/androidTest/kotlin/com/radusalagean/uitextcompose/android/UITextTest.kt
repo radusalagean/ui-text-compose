@@ -1,5 +1,6 @@
-package com.radusalagean.uitextcompose.kmp
+package com.radusalagean.uitextcompose.android
 
+import android.content.Context
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.LinkAnnotation
@@ -10,21 +11,23 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.withLink
-import com.radusalagean.uitextcompose_kmp.generated.resources.Res
-import com.radusalagean.uitextcompose_kmp.generated.resources.test_res
-import com.radusalagean.uitextcompose_kmp.generated.resources.test_res_with_arg
-import com.radusalagean.uitextcompose_kmp.generated.resources.test_plural
-import com.radusalagean.uitextcompose_kmp.generated.resources.test_res_with_multiple_args
-import com.radusalagean.uitextcompose_kmp.generated.resources.test_plural_with_multiple_args
+import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
-import kotlin.test.Test
+import org.junit.Test
+import com.radusalagean.uitextcompose.android.test.R
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.runner.RunWith
 import kotlin.test.assertEquals
 
+@RunWith(AndroidJUnit4::class)
 class UITextTest {
 
     @get:Rule
     val rule = createComposeRule()
+    
+    private val context: Context
+        get() = InstrumentationRegistry.getInstrumentation().targetContext
     
     @Test
     fun raw() = runTest {
@@ -32,7 +35,7 @@ class UITextTest {
         val uiText = UIText { raw("This is a raw string") }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("This is a raw string", result)
@@ -42,11 +45,11 @@ class UITextTest {
     fun res() = runTest {
         // Given
         val uiText = UIText {
-            res(Res.string.test_res)
+            res(R.string.test_res)
         }
 
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
 
         // Then
         assertEquals("Instrumented test string", result)
@@ -56,13 +59,13 @@ class UITextTest {
     fun res_with_arg() = runTest {
         // Given
         val uiText = UIText {
-            res(Res.string.test_res_with_arg) {
+            res(R.string.test_res_with_arg) {
                 arg("instrumented")
             }
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("Hello from instrumented test!", result)
@@ -73,13 +76,13 @@ class UITextTest {
         // Given
         val nestedText = UIText { raw("nested") }
         val uiText = UIText {
-            res(Res.string.test_res_with_arg) {
+            res(R.string.test_res_with_arg) {
                 arg(nestedText)
             }
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("Hello from nested test!", result)
@@ -88,15 +91,15 @@ class UITextTest {
     @Test
     fun res_with_UIText_res_arg() = runTest {
         // Given
-        val nestedText = UIText { res(Res.string.test_res) }
+        val nestedText = UIText { res(R.string.test_res) }
         val uiText = UIText {
-            res(Res.string.test_res_with_arg) {
+            res(R.string.test_res_with_arg) {
                 arg(nestedText)
             }
         }
 
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
 
         // Then
         assertEquals("Hello from Instrumented test string test!", result)
@@ -105,15 +108,15 @@ class UITextTest {
     @Test
     fun res_with_UIText_plural_res_arg() = runTest {
         // Given
-        val nestedText = UIText { pluralRes(Res.plurals.test_plural, 8) }
+        val nestedText = UIText { pluralRes(R.plurals.test_plural, 8) }
         val uiText = UIText {
-            res(Res.string.test_res_with_arg) {
+            res(R.string.test_res_with_arg) {
                 arg(nestedText)
             }
         }
 
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
 
         // Then
         assertEquals("Hello from 8 test items test!", result)
@@ -123,17 +126,17 @@ class UITextTest {
     fun res_with_multiple_types_of_args() = runTest {
         // Given
         val uiText = UIText {
-            res(Res.string.test_res_with_multiple_args) {
+            res(R.string.test_res_with_multiple_args) {
                 arg("User")
                 arg("encountered")
                 arg(
-                    UIText { res(Res.string.test_res) }
+                    UIText { res(R.string.test_res) }
                 )
             }
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("User has encountered Instrumented test string", result)
@@ -143,11 +146,11 @@ class UITextTest {
     fun plural_res_single() = runTest {
         // Given
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural, 1)
+            pluralRes(R.plurals.test_plural, 1)
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("1 test item", result)
@@ -157,11 +160,11 @@ class UITextTest {
     fun plural_res_multiple() = runTest {
         // Given
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural, 5)
+            pluralRes(R.plurals.test_plural, 5)
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("5 test items", result)
@@ -171,13 +174,13 @@ class UITextTest {
     fun plural_res_with_string_arg_single() = runTest {
         // Given
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural, 1) {
+            pluralRes(R.plurals.test_plural, 1) {
                 arg("custom")
             }
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("custom test item", result)
@@ -187,13 +190,13 @@ class UITextTest {
     fun plural_res_with_string_arg_multiple() = runTest {
         // Given
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural, 5) {
+            pluralRes(R.plurals.test_plural, 5) {
                 arg("custom")
             }
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("custom test items", result)
@@ -204,13 +207,13 @@ class UITextTest {
         // Given
         val nestedText = UIText { raw("dynamic") }
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural, 1) {
+            pluralRes(R.plurals.test_plural, 1) {
                 arg(nestedText)
             }
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("dynamic test item", result)
@@ -221,13 +224,13 @@ class UITextTest {
         // Given
         val nestedText = UIText { raw("dynamic") }
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural, 5) {
+            pluralRes(R.plurals.test_plural, 5) {
                 arg(nestedText)
             }
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("dynamic test items", result)
@@ -238,7 +241,7 @@ class UITextTest {
         // Given
         val boldStyle = SpanStyle(fontWeight = FontWeight.Bold)
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural, 1) {
+            pluralRes(R.plurals.test_plural, 1) {
                 arg("bold") {
                     +boldStyle
                 }
@@ -246,7 +249,7 @@ class UITextTest {
         }
         
         // When
-        val result = uiText.buildAnnotatedString()
+        val result = uiText.buildAnnotatedString(context)
         
         // Then
         val expected = buildAnnotatedString {
@@ -263,7 +266,7 @@ class UITextTest {
         // Given
         val boldStyle = SpanStyle(fontWeight = FontWeight.Bold)
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural, 5) {
+            pluralRes(R.plurals.test_plural, 5) {
                 arg("bold") {
                     +boldStyle
                 }
@@ -271,7 +274,7 @@ class UITextTest {
         }
         
         // When
-        val result = uiText.buildAnnotatedString()
+        val result = uiText.buildAnnotatedString(context)
         
         // Then
         val expected = buildAnnotatedString {
@@ -288,14 +291,14 @@ class UITextTest {
         // Given
         val redStyle = SpanStyle(color = Color.Red)
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural, 1) {
+            pluralRes(R.plurals.test_plural, 1) {
                 +redStyle
                 arg("special")
             }
         }
         
         // When
-        val result = uiText.buildAnnotatedString()
+        val result = uiText.buildAnnotatedString(context)
         
         // Then
         val expected = buildAnnotatedString {
@@ -310,7 +313,7 @@ class UITextTest {
     fun plural_res_with_multiple_args_single() = runTest {
         // Given
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural_with_multiple_args, 1) {
+            pluralRes(R.plurals.test_plural_with_multiple_args, 1) {
                 arg("User")
                 arg("rare")
                 arg("special")
@@ -318,7 +321,7 @@ class UITextTest {
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("User found rare special item", result)
@@ -328,7 +331,7 @@ class UITextTest {
     fun plural_res_with_multiple_args_multiple() = runTest {
         // Given
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural_with_multiple_args, 3) {
+            pluralRes(R.plurals.test_plural_with_multiple_args, 3) {
                 arg("User")
                 arg("rare")
                 arg("special")
@@ -336,7 +339,7 @@ class UITextTest {
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("User found rare special items", result)
@@ -350,7 +353,7 @@ class UITextTest {
         val italicStyle = SpanStyle(fontStyle = androidx.compose.ui.text.font.FontStyle.Italic)
         
         val uiText = UIText {
-            pluralRes(Res.plurals.test_plural_with_multiple_args, 5) {
+            pluralRes(R.plurals.test_plural_with_multiple_args, 5) {
                 +redStyle
                 arg("Explorer") {
                     +boldStyle
@@ -363,7 +366,7 @@ class UITextTest {
         }
         
         // When
-        val result = uiText.buildAnnotatedString()
+        val result = uiText.buildAnnotatedString(context)
         
         // Then
         val expected = buildAnnotatedString {
@@ -390,7 +393,7 @@ class UITextTest {
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("First part. Second part.", result)
@@ -400,13 +403,13 @@ class UITextTest {
     fun compound_with_resources() = runTest {
         // Given
         val uiText = UIText {
-            res(Res.string.test_res)
+            res(R.string.test_res)
             raw(". ")
-            pluralRes(Res.plurals.test_plural, 3)
+            pluralRes(R.plurals.test_plural, 3)
         }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("Instrumented test string. 3 test items", result)
@@ -417,13 +420,13 @@ class UITextTest {
         // Given
         val boldStyle = SpanStyle(fontWeight = FontWeight.Bold)
         val uiText = UIText {
-            res(Res.string.test_res) {
+            res(R.string.test_res) {
                 +boldStyle
             }
         }
         
         // When
-        val result = uiText.buildAnnotatedString()
+        val result = uiText.buildAnnotatedString(context)
         
         // Then
         val expected = buildAnnotatedString {
@@ -439,13 +442,13 @@ class UITextTest {
         // Given
         val centerAlignStyle = ParagraphStyle(textAlign = TextAlign.Center)
         val uiText = UIText {
-            res(Res.string.test_res) {
+            res(R.string.test_res) {
                 +centerAlignStyle
             }
         }
         
         // When
-        val result = uiText.buildAnnotatedString()
+        val result = uiText.buildAnnotatedString(context)
         
         // Then
         val expected = buildAnnotatedString {
@@ -461,13 +464,13 @@ class UITextTest {
         // Given
         val linkAnnotation = LinkAnnotation.Url(url = "https://example.com")
         val uiText = UIText {
-            res(Res.string.test_res) {
+            res(R.string.test_res) {
                 +linkAnnotation
             }
         }
         
         // When
-        val result = uiText.buildAnnotatedString()
+        val result = uiText.buildAnnotatedString(context)
         
         // Then
         val expected = buildAnnotatedString {
@@ -483,7 +486,7 @@ class UITextTest {
         // Given
         val boldStyle = SpanStyle(fontWeight = FontWeight.Bold)
         val uiText = UIText {
-            res(Res.string.test_res_with_arg) {
+            res(R.string.test_res_with_arg) {
                 arg("highlighted") {
                     +boldStyle
                 }
@@ -491,7 +494,7 @@ class UITextTest {
         }
         
         // When
-        val result = uiText.buildAnnotatedString()
+        val result = uiText.buildAnnotatedString(context)
         
         // Then
         val expected = buildAnnotatedString {
@@ -510,7 +513,7 @@ class UITextTest {
         val uiText = UIText { }
         
         // When
-        val result = uiText.buildString()
+        val result = uiText.buildString(context)
         
         // Then
         assertEquals("", result)
@@ -521,7 +524,7 @@ class UITextTest {
         rule.setContent {
             // Given
             val uiText = UIText { 
-                res(Res.string.test_res)
+                res(R.string.test_res)
             }
             
             // When
@@ -538,7 +541,7 @@ class UITextTest {
             // Given
             val boldStyle = SpanStyle(fontWeight = FontWeight.Bold)
             val uiText = UIText {
-                res(Res.string.test_res) {
+                res(R.string.test_res) {
                     +boldStyle
                 }
             }
@@ -563,7 +566,7 @@ class UITextTest {
         val boldStyle = SpanStyle(fontWeight = FontWeight.Bold)
         val lightStyle = SpanStyle(fontWeight = FontWeight.Light)
         val uiText = UIText {
-            res(Res.string.test_res_with_multiple_args) {
+            res(R.string.test_res_with_multiple_args) {
                 +redStyle
                 arg("User") {
                     +boldStyle
@@ -579,7 +582,7 @@ class UITextTest {
         }
         
         // When
-        val result = uiText.buildAnnotatedString()
+        val result = uiText.buildAnnotatedString(context)
         
         // Then
         val expected = buildAnnotatedString {
