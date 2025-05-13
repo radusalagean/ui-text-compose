@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.ui)
+    androidTestImplementation(libs.androidx.compose.ui.test.manifest)
     androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
