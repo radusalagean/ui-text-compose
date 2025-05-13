@@ -75,7 +75,7 @@ jobs:
       if: matrix.target == 'uitextcompose-android:connectedAndroidTest'
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 35
+        api-level: 29
         target: google_apis
         arch: x86_64
         profile: Nexus 6
