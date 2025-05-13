@@ -76,9 +76,4 @@ jobs:
       uses: gradle/actions/setup-gradle@v3
 
     - name: Execute Gradle test
-      if: matrix.target == 'uitextcompose-kmp:desktopTest'
       run: xvfb-run ./gradlew ${{ matrix.target }}
-
-    - name: Execute Android test
-      if: matrix.target == 'uitextcompose-android:connectedAndroidTest'
-      run: ./gradlew ${{ matrix.target }}
