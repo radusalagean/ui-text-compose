@@ -56,7 +56,7 @@ public object UITextUtil {
 
     /**
      * Builds an annotated string using a synchronous string provider
-     * Used by Android-only implementation
+     * Used by the implementation for Android String Resources
      */
     public fun buildAnnotatedString(
         resolvedArgs: List<Pair<Any, List<UITextAnnotation>>>,
@@ -72,7 +72,7 @@ public object UITextUtil {
 
     /**
      * Builds an annotated string using a suspend string provider
-     * Used by KMP implementation
+     * Used by the implementation for Compose Multiplatform Resources
      */
     public suspend fun buildAnnotatedStringSuspend(
         resolvedArgs: List<Pair<Any, List<UITextAnnotation>>>,

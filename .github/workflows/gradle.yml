@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: uitextcompose-kmp:desktopTest
+          - target: uitextcompose-multiplatform:desktopTest
             os: ubuntu-latest
           - target: uitextcompose-android:connectedAndroidTest
             os: ubuntu-latest
@@ -67,8 +67,8 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
 
-    - name: Execute uitextcompose-kmp:desktopTest
-      if: matrix.target == 'uitextcompose-kmp:desktopTest'
+    - name: Execute uitextcompose-multiplatform:desktopTest
+      if: matrix.target == 'uitextcompose-multiplatform:desktopTest'
       run: xvfb-run ./gradlew ${{ matrix.target }}
 
     - name: Execute uitextcompose-android:connectedAndroidTest
