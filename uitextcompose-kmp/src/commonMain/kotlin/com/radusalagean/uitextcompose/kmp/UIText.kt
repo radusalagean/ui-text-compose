@@ -21,7 +21,7 @@ import org.jetbrains.compose.resources.getString
  * Unit represents the absence of a Context requirement - KMP version doesn't have a
  *  Context dependency
  */
-public sealed class UIText : UITextBase<Unit> {
+public sealed class UIText : UITextBase {
 
     protected abstract suspend fun build(): CharSequence
 
@@ -49,7 +49,7 @@ public sealed class UIText : UITextBase<Unit> {
     }
 
     @Composable
-    public fun buildStringComposable(): String {
+    public override fun buildStringComposable(): String {
         val string by rememberResourceState({ "" }) {
             buildString()
         }
@@ -65,19 +65,11 @@ public sealed class UIText : UITextBase<Unit> {
     }
 
     @Composable
-    public fun buildAnnotatedStringComposable(): AnnotatedString {
+    public override fun buildAnnotatedStringComposable(): AnnotatedString {
         val annotatedString by rememberResourceState({ AnnotatedString("") }) {
             buildAnnotatedString()
         }
         return annotatedString
-    }
-
-    override fun buildString(context: Unit): String {
-        throw UnsupportedOperationException("Use the suspend or Composable versions in KMP")
-    }
-
-    override fun buildAnnotatedString(context: Unit): AnnotatedString {
-        throw UnsupportedOperationException("Use the suspend or Composable versions in KMP")
     }
 
     protected suspend fun resolveArg(arg: Any): Any = when (arg) {

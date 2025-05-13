@@ -25,7 +25,7 @@ public class ResBuilder : AnnotationsBuilder() {
         args += value to builder.buildAnnotations()
     }
 
-    public fun <T : UITextBase<*>> arg(
+    public fun <T : UITextBase> arg(
         value: T,
         annotationsBuilder: AnnotationsBuilder.() -> Unit = { }
     ) {

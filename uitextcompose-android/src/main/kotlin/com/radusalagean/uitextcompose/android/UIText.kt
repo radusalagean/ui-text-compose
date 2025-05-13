@@ -4,16 +4,18 @@ import android.content.Context
 import android.content.res.Resources
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import com.radusalagean.uitextcompose.core.UITextAnnotation
 import com.radusalagean.uitextcompose.core.UITextBase
 import com.radusalagean.uitextcompose.core.UITextUtil
 
-public sealed class UIText : UITextBase<Context> {
+public sealed class UIText : UITextBase {
 
     protected abstract fun build(context: Context): CharSequence
 
-    override fun buildString(context: Context): String {
+    public fun buildString(context: Context): String {
         return when (val charSequence = build(context)) {
             is String -> charSequence
             is AnnotatedString -> charSequence.toString() // We drop any style here
@@ -21,12 +23,22 @@ public sealed class UIText : UITextBase<Context> {
         }
     }
 
-    override fun buildAnnotatedString(context: Context): AnnotatedString {
+    @Composable
+    override fun buildStringComposable(): String {
+        return buildString(LocalContext.current)
+    }
+
+    public fun buildAnnotatedString(context: Context): AnnotatedString {
         return when (val charSequence = build(context)) {
             is String -> AnnotatedString(charSequence)
             is AnnotatedString -> charSequence
             else -> AnnotatedString("")
         }
+    }
+
+    @Composable
+    override fun buildAnnotatedStringComposable(): AnnotatedString {
+        return buildAnnotatedString(LocalContext.current)
     }
 
     protected fun resolveArg(context: Context, arg: Any): Any = when (arg) {
