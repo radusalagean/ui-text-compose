@@ -13,6 +13,7 @@ composeBom = "2025.05.00"
 androidx-lifecycle = "2.8.4"
 androidx-activityCompose = "1.10.1"
 androidx-appcompat = "1.7.0"
+androidx-annotation = "1.9.1"
 napier = "2.7.1"
 koin = "4.0.4"
 
@@ -38,6 +39,7 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 androidx-lifecycle-viewmodel-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
 napier = { group = "io.github.aakira", name = "napier", version.ref = "napier" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core" }

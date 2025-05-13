@@ -36,7 +36,9 @@ android {
 
 dependencies {
     api(project(":uitextcompose-core"))
+    implementation(libs.androidx.annotation)
     implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.ui)
     androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
