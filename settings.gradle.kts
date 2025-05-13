@@ -15,5 +15,8 @@ dependencyResolutionManagement {
     }
 }
 
-include(":uitextcompose")
-include(":uitextcompose-sample")
+include(":uitextcompose-core")
+include(":uitextcompose-multiplatform")
+include(":uitextcompose-multiplatform-sample")
+include(":uitextcompose-android")
+include(":uitextcompose-android-sample")
