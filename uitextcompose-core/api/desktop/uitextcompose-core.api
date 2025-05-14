@@ -1,0 +1,90 @@
+public class com/radusalagean/uitextcompose/core/AnnotationsBuilder {
+	public static final field $stable I
+	public fun <init> ()V
+	public final fun buildAnnotations ()Ljava/util/List;
+	public final fun unaryPlus (Landroidx/compose/ui/text/LinkAnnotation;)V
+	public final fun unaryPlus (Landroidx/compose/ui/text/ParagraphStyle;)V
+	public final fun unaryPlus (Landroidx/compose/ui/text/SpanStyle;)V
+}
+
+public final class com/radusalagean/uitextcompose/core/ResBuilder : com/radusalagean/uitextcompose/core/AnnotationsBuilder {
+	public static final field $stable I
+	public fun <init> ()V
+	public final fun arg (Lcom/radusalagean/uitextcompose/core/UITextBase;Lkotlin/jvm/functions/Function1;)V
+	public final fun arg (Ljava/lang/CharSequence;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun arg$default (Lcom/radusalagean/uitextcompose/core/ResBuilder;Lcom/radusalagean/uitextcompose/core/UITextBase;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static synthetic fun arg$default (Lcom/radusalagean/uitextcompose/core/ResBuilder;Ljava/lang/CharSequence;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public final fun buildResConfig ()Lcom/radusalagean/uitextcompose/core/ResConfig;
+}
+
+public final class com/radusalagean/uitextcompose/core/ResConfig {
+	public static final field $stable I
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public final fun getAnnotations ()Ljava/util/List;
+	public final fun getArgs ()Ljava/util/List;
+}
+
+public abstract interface class com/radusalagean/uitextcompose/core/UITextAnnotation {
+}
+
+public final class com/radusalagean/uitextcompose/core/UITextAnnotation$Link : com/radusalagean/uitextcompose/core/UITextAnnotation {
+	public static final synthetic fun box-impl (Landroidx/compose/ui/text/LinkAnnotation;)Lcom/radusalagean/uitextcompose/core/UITextAnnotation$Link;
+	public static fun constructor-impl (Landroidx/compose/ui/text/LinkAnnotation;)Landroidx/compose/ui/text/LinkAnnotation;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Landroidx/compose/ui/text/LinkAnnotation;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Landroidx/compose/ui/text/LinkAnnotation;Landroidx/compose/ui/text/LinkAnnotation;)Z
+	public fun hashCode ()I
+	public static fun hashCode-impl (Landroidx/compose/ui/text/LinkAnnotation;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Landroidx/compose/ui/text/LinkAnnotation;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Landroidx/compose/ui/text/LinkAnnotation;
+}
+
+public final class com/radusalagean/uitextcompose/core/UITextAnnotation$Paragraph : com/radusalagean/uitextcompose/core/UITextAnnotation {
+	public static final synthetic fun box-impl (Landroidx/compose/ui/text/ParagraphStyle;)Lcom/radusalagean/uitextcompose/core/UITextAnnotation$Paragraph;
+	public static fun constructor-impl (Landroidx/compose/ui/text/ParagraphStyle;)Landroidx/compose/ui/text/ParagraphStyle;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Landroidx/compose/ui/text/ParagraphStyle;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Landroidx/compose/ui/text/ParagraphStyle;Landroidx/compose/ui/text/ParagraphStyle;)Z
+	public fun hashCode ()I
+	public static fun hashCode-impl (Landroidx/compose/ui/text/ParagraphStyle;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Landroidx/compose/ui/text/ParagraphStyle;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Landroidx/compose/ui/text/ParagraphStyle;
+}
+
+public final class com/radusalagean/uitextcompose/core/UITextAnnotation$Span : com/radusalagean/uitextcompose/core/UITextAnnotation {
+	public static final synthetic fun box-impl (Landroidx/compose/ui/text/SpanStyle;)Lcom/radusalagean/uitextcompose/core/UITextAnnotation$Span;
+	public static fun constructor-impl (Landroidx/compose/ui/text/SpanStyle;)Landroidx/compose/ui/text/SpanStyle;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Landroidx/compose/ui/text/SpanStyle;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Landroidx/compose/ui/text/SpanStyle;Landroidx/compose/ui/text/SpanStyle;)Z
+	public fun hashCode ()I
+	public static fun hashCode-impl (Landroidx/compose/ui/text/SpanStyle;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Landroidx/compose/ui/text/SpanStyle;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Landroidx/compose/ui/text/SpanStyle;
+}
+
+public abstract interface class com/radusalagean/uitextcompose/core/UITextBase {
+	public abstract fun buildAnnotatedStringComposable (Landroidx/compose/runtime/Composer;I)Landroidx/compose/ui/text/AnnotatedString;
+	public abstract fun buildStringComposable (Landroidx/compose/runtime/Composer;I)Ljava/lang/String;
+}
+
+public abstract interface class com/radusalagean/uitextcompose/core/UITextBuilderBase {
+	public abstract fun build ()Ljava/lang/Object;
+	public abstract fun raw (Ljava/lang/CharSequence;)V
+}
+
+public abstract interface annotation class com/radusalagean/uitextcompose/core/UITextDslMarker : java/lang/annotation/Annotation {
+}
+
+public final class com/radusalagean/uitextcompose/core/UITextUtil {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/radusalagean/uitextcompose/core/UITextUtil;
+	public final fun buildAnnotatedString (Ljava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function0;)Ljava/lang/CharSequence;
+	public final fun buildAnnotatedStringSuspend (Ljava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun concat (Ljava/util/List;)Ljava/lang/CharSequence;
+	public final fun generatePlaceholderArgs (I)[Ljava/lang/String;
+}
+

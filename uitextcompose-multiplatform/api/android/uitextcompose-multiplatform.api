@@ -1,0 +1,28 @@
+public abstract class com/radusalagean/uitextcompose/multiplatform/UIText : com/radusalagean/uitextcompose/core/UITextBase {
+	public static final field $stable I
+	protected abstract fun build (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun buildAnnotatedString (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun buildAnnotatedStringComposable (Landroidx/compose/runtime/Composer;I)Landroidx/compose/ui/text/AnnotatedString;
+	public final fun buildString (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun buildStringComposable (Landroidx/compose/runtime/Composer;I)Ljava/lang/String;
+	protected final fun getQuantityStringWithPlaceholders (Lorg/jetbrains/compose/resources/PluralStringResource;IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected final fun getStringWithPlaceholders (Lorg/jetbrains/compose/resources/StringResource;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected final fun resolveArg (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/radusalagean/uitextcompose/multiplatform/UITextBuilder : com/radusalagean/uitextcompose/core/UITextBuilderBase {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun build ()Lcom/radusalagean/uitextcompose/multiplatform/UIText;
+	public synthetic fun build ()Ljava/lang/Object;
+	public final fun pluralRes (Lorg/jetbrains/compose/resources/PluralStringResource;ILkotlin/jvm/functions/Function1;)V
+	public static synthetic fun pluralRes$default (Lcom/radusalagean/uitextcompose/multiplatform/UITextBuilder;Lorg/jetbrains/compose/resources/PluralStringResource;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public fun raw (Ljava/lang/CharSequence;)V
+	public final fun res (Lorg/jetbrains/compose/resources/StringResource;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun res$default (Lcom/radusalagean/uitextcompose/multiplatform/UITextBuilder;Lorg/jetbrains/compose/resources/StringResource;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
+public final class com/radusalagean/uitextcompose/multiplatform/UITextBuilderKt {
+	public static final fun UIText (Lkotlin/jvm/functions/Function1;)Lcom/radusalagean/uitextcompose/multiplatform/UIText;
+}
+

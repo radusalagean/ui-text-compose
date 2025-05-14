@@ -21,11 +21,8 @@ jobs:
   test:
     strategy:
       matrix:
-        include:
-          - target: uitextcompose-multiplatform:desktopTest
-            os: ubuntu-latest
-          - target: uitextcompose-android:connectedAndroidTest
-            os: ubuntu-latest
+        module: [uitextcompose-core, uitextcompose-android, uitextcompose-multiplatform]
+        os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -49,14 +46,14 @@ jobs:
         cache: gradle
 
     - name: Enable KVM
-      if: matrix.target == 'uitextcompose-android:connectedAndroidTest'
+      if: matrix.module == 'uitextcompose-android'
       run: |
         echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
         sudo udevadm control --reload-rules
         sudo udevadm trigger --name-match=kvm
 
     - name: Setup Android SDK
-      if: matrix.target == 'uitextcompose-android:connectedAndroidTest'
+      if: matrix.module == 'uitextcompose-android'
       uses: android-actions/setup-android@v3
       with:
         log-accepted-android-sdk-licenses: false
@@ -67,16 +64,20 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
 
-    - name: Execute uitextcompose-multiplatform:desktopTest
-      if: matrix.target == 'uitextcompose-multiplatform:desktopTest'
-      run: xvfb-run ./gradlew ${{ matrix.target }}
+    - name: Execute Core Check
+      if: matrix.module == 'uitextcompose-core'
+      run: ./gradlew uitextcompose-core:check
 
-    - name: Execute uitextcompose-android:connectedAndroidTest
-      if: matrix.target == 'uitextcompose-android:connectedAndroidTest'
+    - name: Execute Multiplatform Tests
+      if: matrix.module == 'uitextcompose-multiplatform'
+      run: xvfb-run ./gradlew uitextcompose-multiplatform:check uitextcompose-multiplatform:desktopTest
+
+    - name: Execute Android Tests
+      if: matrix.module == 'uitextcompose-android'
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 29
         target: google_apis
         arch: x86_64
         profile: Nexus 6
-        script: xvfb-run ./gradlew ${{ matrix.target }}
+        script: xvfb-run ./gradlew uitextcompose-android:check uitextcompose-android:connectedAndroidTest

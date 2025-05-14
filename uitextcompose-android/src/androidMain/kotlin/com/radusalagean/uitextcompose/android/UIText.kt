@@ -64,13 +64,13 @@ public sealed class UIText : UITextBase {
         *UITextUtil.generatePlaceholderArgs(placeholdersCount)
     )
 
-    public class Raw(private val text: CharSequence) : UIText() {
+    internal class Raw(private val text: CharSequence) : UIText() {
         override fun build(context: Context): CharSequence {
             return text
         }
     }
 
-    public class Res(
+    internal class Res(
         @StringRes private val resId: Int,
         private val args: List<Pair<Any, List<UITextAnnotation>>>,
         private val baseAnnotations: List<UITextAnnotation>
@@ -103,7 +103,7 @@ public sealed class UIText : UITextBase {
         }
     }
 
-    public class PluralRes(
+    internal class PluralRes(
         @PluralsRes private val resId: Int,
         private val quantity: Int,
         private val args: List<Pair<Any, List<UITextAnnotation>>>,
@@ -139,7 +139,7 @@ public sealed class UIText : UITextBase {
         }
     }
 
-    public class Compound(
+    internal class Compound(
         private val components: List<UIText>
     ) : UIText() {
         override fun build(context: Context): CharSequence {
