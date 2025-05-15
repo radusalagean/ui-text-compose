@@ -4,15 +4,18 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 
+@InternalApi
 @DslMarker
 public annotation class UITextDslMarker
 
+@OptIn(InternalApi::class)
 @UITextDslMarker
 public interface UITextBuilderBase<T> {
     public fun raw(text: CharSequence)
     public fun build(): T
 }
 
+@OptIn(InternalApi::class)
 @UITextDslMarker
 public class ResBuilder : AnnotationsBuilder() {
     private val args = mutableListOf<Pair<Any, List<UITextAnnotation>>>()
@@ -39,11 +42,13 @@ public class ResBuilder : AnnotationsBuilder() {
     )
 }
 
+@InternalApi
 public class ResConfig(
     public val annotations: List<UITextAnnotation>,
     public val args: List<Pair<Any, List<UITextAnnotation>>>
 )
 
+@OptIn(InternalApi::class)
 @UITextDslMarker
 public open class AnnotationsBuilder {
     internal val annotations: MutableList<UITextAnnotation> = mutableListOf()

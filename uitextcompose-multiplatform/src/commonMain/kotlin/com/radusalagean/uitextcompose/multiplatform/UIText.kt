@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.text.AnnotatedString
+import com.radusalagean.uitextcompose.core.InternalApi
 import com.radusalagean.uitextcompose.core.UITextAnnotation
 import com.radusalagean.uitextcompose.core.UITextBase
 import com.radusalagean.uitextcompose.core.UITextUtil
@@ -17,6 +18,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
 
+@OptIn(InternalApi::class)
 public sealed class UIText : UITextBase {
 
     protected abstract suspend fun build(): CharSequence

@@ -7,10 +7,12 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
+import com.radusalagean.uitextcompose.core.InternalApi
 import com.radusalagean.uitextcompose.core.UITextAnnotation
 import com.radusalagean.uitextcompose.core.UITextBase
 import com.radusalagean.uitextcompose.core.UITextUtil
 
+@OptIn(InternalApi::class)
 public sealed class UIText : UITextBase {
 
     protected abstract fun build(context: Context): CharSequence

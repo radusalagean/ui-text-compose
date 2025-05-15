@@ -1,5 +1,6 @@
 package com.radusalagean.uitextcompose.multiplatform
 
+import com.radusalagean.uitextcompose.core.InternalApi
 import com.radusalagean.uitextcompose.core.ResBuilder
 import com.radusalagean.uitextcompose.core.UITextBuilderBase
 import com.radusalagean.uitextcompose.core.UITextDslMarker
@@ -9,6 +10,7 @@ import org.jetbrains.compose.resources.StringResource
 public fun UIText(block: UITextBuilder.() -> Unit): UIText = UITextBuilder().apply(block).build()
 
 @UITextDslMarker
+@OptIn(InternalApi::class)
 public class UITextBuilder : UITextBuilderBase<UIText> {
     private val components = mutableListOf<UIText>()
 

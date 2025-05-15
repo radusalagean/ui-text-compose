@@ -5,6 +5,7 @@ import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import kotlin.jvm.JvmInline
 
+@InternalApi
 public sealed interface UITextAnnotation {
 
     @JvmInline

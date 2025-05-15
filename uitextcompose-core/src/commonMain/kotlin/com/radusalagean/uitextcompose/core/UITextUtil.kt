@@ -4,6 +4,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 
+@InternalApi
 public object UITextUtil {
     private val placeholderRegex: Regex = Regex("\\$\\{(\\d+)\\}")
 
