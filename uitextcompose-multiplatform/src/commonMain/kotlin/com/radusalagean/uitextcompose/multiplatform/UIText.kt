@@ -17,6 +17,7 @@ import org.jetbrains.compose.resources.PluralStringResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.rememberResourceEnvironment
 
 @OptIn(InternalApi::class)
 public sealed class UIText : UITextBase {
@@ -29,7 +30,8 @@ public sealed class UIText : UITextBase {
         block: suspend () -> T
     ): State<T> {
         val scope = rememberCoroutineScope()
-        return remember {
+        val resourceEnvironment = rememberResourceEnvironment()
+        return remember(resourceEnvironment) {
             val mutableState = mutableStateOf(getDefault())
             scope.launch(start = CoroutineStart.UNDISPATCHED) {
                 mutableState.value = block()
