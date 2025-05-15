@@ -3,6 +3,9 @@
     <string name="test_res">Instrumented test string</string>
     <string name="test_res_with_arg">Hello from %1$s test!</string>
     <string name="test_res_with_multiple_args">%1$s has %2$s %3$s</string>
+    <string name="test_res_with_mixed_placeholders_1">1: %s 2: %1$s 3: %s</string>
+    <string name="test_res_with_mixed_placeholders_2">1: %2$s 2: %1$s 3: %1$s 4: %s 5: %3$s 6: %s</string>
+    <string name="test_res_with_mixed_placeholders_and_some_escaped">1: %%2$s 2: %1$s 3: %1$s 4: %%s 5: %3$s 6: %s</string>
     <plurals name="test_plural">
         <item quantity="one">%1$s test item</item>
         <item quantity="other">%1$s test items</item>
@@ -10,5 +13,17 @@
     <plurals name="test_plural_with_multiple_args">
         <item quantity="one">%1$s found %2$s %3$s item</item>
         <item quantity="other">%1$s found %2$s %3$s items</item>
+    </plurals>
+    <plurals name="test_plural_with_mixed_placeholders_1">
+        <item quantity="one">1: %s 2: %1$s 3: %s item</item>
+        <item quantity="other">1: %s 2: %1$s 3: %s items</item>
+    </plurals>
+    <plurals name="test_plural_with_mixed_placeholders_2">
+        <item quantity="one">1: %2$s 2: %1$s 3: %1$s 4: %s 5: %3$s 6: %s item</item>
+        <item quantity="other">1: %2$s 2: %1$s 3: %1$s 4: %s 5: %3$s 6: %s items</item>
+    </plurals>
+    <plurals name="test_plural_with_mixed_placeholders_and_some_escaped">
+        <item quantity="one">1: %%2$s 2: %1$s 3: %1$s 4: %%s 5: %3$s 6: %s item</item>
+        <item quantity="other">1: %%2$s 2: %1$s 3: %1$s 4: %%s 5: %3$s 6: %s items</item>
     </plurals>
 </resources> 

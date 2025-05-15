@@ -75,24 +75,6 @@ public sealed class UIText : UITextBase {
         else -> arg
     }
 
-    protected suspend fun getStringWithPlaceholders(
-        stringResource: StringResource,
-        placeholdersCount: Int
-    ): String = getString(
-        stringResource,
-        *UITextUtil.generatePlaceholderArgs(placeholdersCount)
-    )
-
-    protected suspend fun getQuantityStringWithPlaceholders(
-        pluralStringResource: PluralStringResource,
-        quantity: Int,
-        placeholdersCount: Int
-    ): String = getPluralString(
-        pluralStringResource,
-        quantity,
-        *UITextUtil.generatePlaceholderArgs(placeholdersCount)
-    )
-
     internal class Raw(private val text: CharSequence) : UIText() {
         override suspend fun build(): CharSequence {
             return text
@@ -114,14 +96,11 @@ public sealed class UIText : UITextBase {
                     resolvedArgs.any { it.first is AnnotatedString }
 
             return if (annotated) {
-                UITextUtil.buildAnnotatedStringSuspend(
+                UITextUtil.buildAnnotatedStringWithComposeMultiplatformStringResourceRules(
                     resolvedArgs = resolvedArgs,
                     baseAnnotations = baseAnnotations,
                     baseStringProvider = {
-                        getStringWithPlaceholders(
-                            stringResource = stringResource,
-                            placeholdersCount = args.size
-                        )
+                        getString(stringResource)
                     }
                 )
             } else if (resolvedArgs.isNotEmpty()) {
@@ -148,15 +127,11 @@ public sealed class UIText : UITextBase {
                     resolvedArgs.any { it.first is AnnotatedString }
 
             return if (annotated) {
-                UITextUtil.buildAnnotatedStringSuspend(
+                UITextUtil.buildAnnotatedStringWithComposeMultiplatformStringResourceRules(
                     resolvedArgs = resolvedArgs,
                     baseAnnotations = baseAnnotations,
                     baseStringProvider = {
-                        getQuantityStringWithPlaceholders(
-                            pluralStringResource = pluralStringResource,
-                            quantity = quantity,
-                            placeholdersCount = args.size
-                        )
+                        getPluralString(pluralStringResource, quantity)
                     }
                 )
             } else if (resolvedArgs.isNotEmpty()) {

@@ -1,7 +1,6 @@
 package com.radusalagean.uitextcompose.android
 
 import android.content.Context
-import android.content.res.Resources
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
@@ -48,24 +47,6 @@ public sealed class UIText : UITextBase {
         else -> arg
     }
 
-    protected fun Resources.getStringWithPlaceholders(
-        @StringRes resId: Int,
-        placeholdersCount: Int
-    ): String = getString(
-        resId,
-        *UITextUtil.generatePlaceholderArgs(placeholdersCount)
-    )
-
-    protected fun Resources.getQuantityStringWithPlaceholders(
-        @PluralsRes resId: Int,
-        quantity: Int,
-        placeholdersCount: Int
-    ): String = getQuantityString(
-        resId,
-        quantity,
-        *UITextUtil.generatePlaceholderArgs(placeholdersCount)
-    )
-
     internal class Raw(private val text: CharSequence) : UIText() {
         override fun build(context: Context): CharSequence {
             return text
@@ -87,14 +68,11 @@ public sealed class UIText : UITextBase {
                     resolvedArgs.any { it.first is AnnotatedString }
 
             return if (annotated) {
-                UITextUtil.buildAnnotatedString(
+                UITextUtil.buildAnnotatedStringWithAndroidStringResourceRules(
                     resolvedArgs = resolvedArgs,
                     baseAnnotations = baseAnnotations,
                     baseStringProvider = {
-                        context.resources.getStringWithPlaceholders(
-                            resId = resId,
-                            placeholdersCount = args.size
-                        )
+                        context.getString(resId)
                     }
                 )
             } else if (resolvedArgs.isNotEmpty()) {
@@ -121,15 +99,11 @@ public sealed class UIText : UITextBase {
                     resolvedArgs.any { it.first is AnnotatedString }
 
             return if (annotated) {
-                UITextUtil.buildAnnotatedString(
+                UITextUtil.buildAnnotatedStringWithAndroidStringResourceRules(
                     resolvedArgs = resolvedArgs,
                     baseAnnotations = baseAnnotations,
                     baseStringProvider = {
-                        context.resources.getQuantityStringWithPlaceholders(
-                            resId = resId,
-                            quantity = quantity,
-                            placeholdersCount = args.size
-                        )
+                        context.resources.getQuantityString(resId, quantity)
                     }
                 )
             } else if (resolvedArgs.isNotEmpty()) {
