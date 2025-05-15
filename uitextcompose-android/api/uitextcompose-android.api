@@ -5,8 +5,6 @@ public abstract class com/radusalagean/uitextcompose/android/UIText : com/radusa
 	public fun buildAnnotatedStringComposable (Landroidx/compose/runtime/Composer;I)Landroidx/compose/ui/text/AnnotatedString;
 	public final fun buildString (Landroid/content/Context;)Ljava/lang/String;
 	public fun buildStringComposable (Landroidx/compose/runtime/Composer;I)Ljava/lang/String;
-	protected final fun getQuantityStringWithPlaceholders (Landroid/content/res/Resources;III)Ljava/lang/String;
-	protected final fun getStringWithPlaceholders (Landroid/content/res/Resources;II)Ljava/lang/String;
 	protected final fun resolveArg (Landroid/content/Context;Ljava/lang/Object;)Ljava/lang/Object;
 }
 

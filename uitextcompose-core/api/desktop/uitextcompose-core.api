@@ -7,6 +7,9 @@ public class com/radusalagean/uitextcompose/core/AnnotationsBuilder {
 	public final fun unaryPlus (Landroidx/compose/ui/text/SpanStyle;)V
 }
 
+public abstract interface annotation class com/radusalagean/uitextcompose/core/InternalApi : java/lang/annotation/Annotation {
+}
+
 public final class com/radusalagean/uitextcompose/core/ResBuilder : com/radusalagean/uitextcompose/core/AnnotationsBuilder {
 	public static final field $stable I
 	public fun <init> ()V
@@ -82,9 +85,8 @@ public abstract interface annotation class com/radusalagean/uitextcompose/core/U
 public final class com/radusalagean/uitextcompose/core/UITextUtil {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/radusalagean/uitextcompose/core/UITextUtil;
-	public final fun buildAnnotatedString (Ljava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function0;)Ljava/lang/CharSequence;
-	public final fun buildAnnotatedStringSuspend (Ljava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun buildAnnotatedStringWithAndroidStringResourceRules (Ljava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function0;)Ljava/lang/CharSequence;
+	public final fun buildAnnotatedStringWithComposeMultiplatformStringResourceRules (Ljava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun concat (Ljava/util/List;)Ljava/lang/CharSequence;
-	public final fun generatePlaceholderArgs (I)[Ljava/lang/String;
 }
 
