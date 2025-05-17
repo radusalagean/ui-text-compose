@@ -19,6 +19,40 @@ import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.rememberResourceEnvironment
 
+/**
+ * Implementation of [UITextBase] for handling text in Compose Multiplatform applications
+ *  using multiplatform string resources.
+ * 
+ * This class provides a way to work with text from various sources such as:
+ * - Raw text strings
+ * - Compose Multiplatform string resources
+ * - Compose Multiplatform plural resources
+ * 
+ * It handles string formatting with placeholders and supports styling through span styles,
+ * paragraph styles, and link annotations. This implementation works across all platforms
+ * supported by Compose Multiplatform.
+ * 
+ * Example usage:
+ * ```
+ * // Create a UIText instance using the DSL
+ * val text = UIText {
+ *     res(Res.string.greeting) {
+ *         arg("User") {
+ *             +SpanStyle(color = Color.Blue) 
+ *         }
+ *     }
+ * }
+ * 
+ * // Use it in a Composable
+ * @Composable
+ * fun Greeting(text: UIText) {
+ *     Text(text = text.buildAnnotatedStringComposable())
+ * }
+ * ```
+ * 
+ * @see UITextBuilder
+ * @see UITextBase
+ */
 @OptIn(InternalApi::class)
 public sealed class UIText : UITextBase {
 
@@ -40,6 +74,14 @@ public sealed class UIText : UITextBase {
         }
     }
 
+    /**
+     * Builds a plain string representation of the text.
+     * 
+     * This suspending function resolves the text content from its source (raw, resource, etc.)
+     * and returns it as a plain string. Any styling information will be lost.
+     * 
+     * @return A plain string representation of the text content.
+     */
     public suspend fun buildString(): String {
         return when (val charSequence = build()) {
             is String -> charSequence
@@ -48,6 +90,16 @@ public sealed class UIText : UITextBase {
         }
     }
 
+    /**
+     * Builds a plain string representation of the text in a composable context.
+     * 
+     * This composable function resolves the text content from its source and returns
+     * it as a plain string. The result is remembered based on resource environment changes.
+     * 
+     * Note: This function launches a coroutine to load the resources asynchronously.
+     * 
+     * @return A plain string representation of the text content.
+     */
     @Composable
     public override fun buildStringComposable(): String {
         val string by rememberResourceState({ "" }) {
@@ -56,6 +108,14 @@ public sealed class UIText : UITextBase {
         return string
     }
 
+    /**
+     * Builds an annotated string representation of the text.
+     * 
+     * This suspending function resolves the text content from its source (raw, resource, etc.)
+     * and returns it as an [AnnotatedString] that preserves styling information.
+     * 
+     * @return An [AnnotatedString] representation of the text content with styling.
+     */
     public suspend fun buildAnnotatedString(): AnnotatedString {
         return when (val charSequence = build()) {
             is String -> AnnotatedString(charSequence)
@@ -64,6 +124,17 @@ public sealed class UIText : UITextBase {
         }
     }
 
+    /**
+     * Builds an annotated string representation of the text in a composable context.
+     * 
+     * This composable function resolves the text content from its source and returns
+     * it as an [AnnotatedString] with styling. The result is remembered based on
+     * resource environment changes.
+     * 
+     * Note: This function launches a coroutine to load the resources asynchronously.
+     * 
+     * @return An [AnnotatedString] representation of the text content with styling.
+     */
     @Composable
     public override fun buildAnnotatedStringComposable(): AnnotatedString {
         val annotatedString by rememberResourceState({ AnnotatedString("") }) {

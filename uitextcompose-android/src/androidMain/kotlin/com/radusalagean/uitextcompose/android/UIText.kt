@@ -13,6 +13,39 @@ import com.radusalagean.uitextcompose.core.UITextAnnotation
 import com.radusalagean.uitextcompose.core.UITextBase
 import com.radusalagean.uitextcompose.core.UITextUtil
 
+/**
+ * Implementation of [UITextBase] for handling text in Android applications
+ *  using Android String Resources.
+ * 
+ * This class provides a way to work with text from various sources such as:
+ * - Raw text strings
+ * - Android string resources
+ * - Android plural resources
+ * 
+ * It handles string formatting with placeholders and supports styling through span styles,
+ * paragraph styles, and link annotations.
+ * 
+ * Example usage:
+ * ```
+ * // Create a UIText instance using the DSL
+ * val text = UIText {
+ *     res(R.string.greeting) {
+ *         arg("User") {
+ *             +SpanStyle(color = Color.Blue) 
+ *         }
+ *     }
+ * }
+ * 
+ * // Use it in a Composable
+ * @Composable
+ * fun Greeting(text: UIText) {
+ *     Text(text = text.buildAnnotatedStringComposable())
+ * }
+ * ```
+ * 
+ * @see UITextBuilder
+ * @see UITextBase
+ */
 @OptIn(InternalApi::class)
 public sealed class UIText : UITextBase {
 
@@ -28,6 +61,15 @@ public sealed class UIText : UITextBase {
         }
     }
 
+    /**
+     * Builds a plain string representation of the text using the provided context.
+     * 
+     * This method resolves the text content from its source (raw, resource, etc.) and
+     * returns it as a plain string. Any styling information will be lost.
+     * 
+     * @param context The Android context to use for resolving resources.
+     * @return A plain string representation of the text content.
+     */
     public fun buildString(context: Context): String {
         return when (val charSequence = build(context)) {
             is String -> charSequence
@@ -36,6 +78,15 @@ public sealed class UIText : UITextBase {
         }
     }
 
+    /**
+     * Builds a plain string representation of the text in a composable context.
+     * 
+     * This composable function retrieves the current Android context and configuration,
+     * then resolves the text content from its source and returns it as a plain string.
+     * The result is remembered based on configuration changes.
+     * 
+     * @return A plain string representation of the text content.
+     */
     @Composable
     public override fun buildStringComposable(): String {
         val context = LocalContext.current
@@ -44,6 +95,15 @@ public sealed class UIText : UITextBase {
         }
     }
 
+    /**
+     * Builds an annotated string representation of the text using the provided context.
+     * 
+     * This method resolves the text content from its source (raw, resource, etc.) and
+     * returns it as an [AnnotatedString] that preserves styling information.
+     * 
+     * @param context The Android context to use for resolving resources.
+     * @return An [AnnotatedString] representation of the text content with styling.
+     */
     public fun buildAnnotatedString(context: Context): AnnotatedString {
         return when (val charSequence = build(context)) {
             is String -> AnnotatedString(charSequence)
@@ -52,6 +112,15 @@ public sealed class UIText : UITextBase {
         }
     }
 
+    /**
+     * Builds an annotated string representation of the text in a composable context.
+     * 
+     * This composable function retrieves the current Android context and configuration,
+     * then resolves the text content from its source and returns it as an [AnnotatedString] with styling.
+     * The result is remembered based on configuration changes.
+     * 
+     * @return An [AnnotatedString] representation of the text content with styling.
+     */
     @Composable
     public override fun buildAnnotatedStringComposable(): AnnotatedString {
         val context = LocalContext.current
