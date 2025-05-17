@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import com.radusalagean.uitextcompose.core.InternalApi
@@ -16,6 +18,16 @@ public sealed class UIText : UITextBase {
 
     protected abstract fun build(context: Context): CharSequence
 
+    @Composable
+    private fun <T> rememberResourceState(
+        block: () -> T
+    ): T {
+        val configuration = LocalConfiguration.current
+        return remember(configuration) {
+            block()
+        }
+    }
+
     public fun buildString(context: Context): String {
         return when (val charSequence = build(context)) {
             is String -> charSequence
@@ -25,8 +37,11 @@ public sealed class UIText : UITextBase {
     }
 
     @Composable
-    override fun buildStringComposable(): String {
-        return buildString(LocalContext.current)
+    public override fun buildStringComposable(): String {
+        val context = LocalContext.current
+        return rememberResourceState {
+            buildString(context)
+        }
     }
 
     public fun buildAnnotatedString(context: Context): AnnotatedString {
@@ -38,8 +53,11 @@ public sealed class UIText : UITextBase {
     }
 
     @Composable
-    override fun buildAnnotatedStringComposable(): AnnotatedString {
-        return buildAnnotatedString(LocalContext.current)
+    public override fun buildAnnotatedStringComposable(): AnnotatedString {
+        val context = LocalContext.current
+        return rememberResourceState {
+            buildAnnotatedString(context)
+        }
     }
 
     protected fun resolveArg(context: Context, arg: Any): Any = when (arg) {
