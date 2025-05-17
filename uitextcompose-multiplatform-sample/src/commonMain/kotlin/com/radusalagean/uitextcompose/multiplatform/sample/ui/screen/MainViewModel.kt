@@ -12,10 +12,10 @@ import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.lifecycle.ViewModel
+import com.radusalagean.uitextcompose.multiplatform.UIText
 import com.radusalagean.uitextcompose.multiplatform.sample.ui.component.ExampleEntryModel
 import com.radusalagean.uitextcompose.multiplatform.sample.ui.component.LanguageOption
 import com.radusalagean.uitextcompose.multiplatform.sample.ui.theme.CustomGreen
-import com.radusalagean.uitextcompose.multiplatform.UIText
 import com.radusalagean.uitextcompose.multiplatform.sample.util.LanguageManager
 import ui_text_compose.uitextcompose_multiplatform_sample.generated.resources.Res
 import ui_text_compose.uitextcompose_multiplatform_sample.generated.resources.greeting
