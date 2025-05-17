@@ -5,14 +5,12 @@ kotlin-binaryCompatibilityValidator = "0.17.0"
 kotlinx-coroutines = "1.10.2"
 compose-multiplatform = "1.8.0"
 coreKtx = "1.16.0"
-junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
 composeBom = "2025.05.00"
 androidx-lifecycle = "2.8.4"
-androidx-activityCompose = "1.10.1"
 androidx-appcompat = "1.7.0"
 androidx-annotation = "1.9.1"
 napier = "2.7.1"
@@ -21,7 +19,6 @@ koin = "4.0.4"
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
@@ -46,7 +43,6 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
-koin-compose-viewmodel-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
