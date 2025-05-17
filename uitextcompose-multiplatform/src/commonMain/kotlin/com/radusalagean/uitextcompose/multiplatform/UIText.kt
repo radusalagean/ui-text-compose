@@ -77,6 +77,16 @@ public sealed class UIText : UITextBase {
         else -> arg
     }
 
+    protected fun hasAnnotations(
+        args: List<Pair<Any, List<UITextAnnotation>>>,
+        resolvedArgs: List<Pair<Any, List<UITextAnnotation>>>,
+        baseAnnotations: List<UITextAnnotation>
+    ): Boolean {
+        if (baseAnnotations.isNotEmpty()) return true
+        if (args.any { it.second.isNotEmpty() }) return true
+        return resolvedArgs.any { it.first is AnnotatedString }
+    }
+
     internal class Raw(private val text: CharSequence) : UIText() {
         override suspend fun build(): CharSequence {
             return text
@@ -90,13 +100,17 @@ public sealed class UIText : UITextBase {
     ) : UIText() {
 
         override suspend fun build(): CharSequence {
+            if (args.isEmpty() && baseAnnotations.isEmpty()) {
+                return getString(stringResource)
+            }
             val resolvedArgs = args.map {
                 resolveArg(it.first) to it.second
             }
-            val annotated = baseAnnotations.isNotEmpty() ||
-                    args.any { it.second.isNotEmpty() } ||
-                    resolvedArgs.any { it.first is AnnotatedString }
-
+            val annotated = hasAnnotations(
+                args = args,
+                resolvedArgs = resolvedArgs,
+                baseAnnotations = baseAnnotations
+            )
             return if (annotated) {
                 UITextUtil.buildAnnotatedStringWithComposeMultiplatformStringResourceRules(
                     resolvedArgs = resolvedArgs,
@@ -106,7 +120,10 @@ public sealed class UIText : UITextBase {
                     }
                 )
             } else if (resolvedArgs.isNotEmpty()) {
-                getString(stringResource, *resolvedArgs.map { it.first }.toTypedArray())
+                val argValues = Array(resolvedArgs.size) { i -> 
+                    resolvedArgs[i].first 
+                }
+                getString(stringResource, *argValues)
             } else {
                 getString(stringResource)
             }
@@ -121,13 +138,17 @@ public sealed class UIText : UITextBase {
     ) : UIText() {
 
         override suspend fun build(): CharSequence {
+            if (args.isEmpty() && baseAnnotations.isEmpty()) {
+                return getPluralString(pluralStringResource, quantity)
+            }
             val resolvedArgs = args.map {
                 resolveArg(it.first) to it.second
             }
-            val annotated = baseAnnotations.isNotEmpty() ||
-                    args.any { it.second.isNotEmpty() } ||
-                    resolvedArgs.any { it.first is AnnotatedString }
-
+            val annotated = hasAnnotations(
+                args = args,
+                resolvedArgs = resolvedArgs,
+                baseAnnotations = baseAnnotations
+            )
             return if (annotated) {
                 UITextUtil.buildAnnotatedStringWithComposeMultiplatformStringResourceRules(
                     resolvedArgs = resolvedArgs,
@@ -137,8 +158,10 @@ public sealed class UIText : UITextBase {
                     }
                 )
             } else if (resolvedArgs.isNotEmpty()) {
-                getPluralString(pluralStringResource, quantity,
-                    *resolvedArgs.map { it.first }.toTypedArray())
+                val argValues = Array(resolvedArgs.size) { i -> 
+                    resolvedArgs[i].first 
+                }
+                getPluralString(pluralStringResource, quantity, *argValues)
             } else {
                 getPluralString(pluralStringResource, quantity)
             }
@@ -149,6 +172,12 @@ public sealed class UIText : UITextBase {
         private val components: List<UIText>
     ) : UIText() {
         override suspend fun build(): CharSequence {
+            if (components.isEmpty()) {
+                return ""
+            }
+            if (components.size == 1) {
+                return components[0].build()
+            }
             val resolvedComponents = components.map { it.build() }
             return UITextUtil.concat(resolvedComponents)
         }

@@ -65,6 +65,16 @@ public sealed class UIText : UITextBase {
         else -> arg
     }
 
+    protected fun hasAnnotations(
+        args: List<Pair<Any, List<UITextAnnotation>>>,
+        resolvedArgs: List<Pair<Any, List<UITextAnnotation>>>,
+        baseAnnotations: List<UITextAnnotation>
+    ): Boolean {
+        if (baseAnnotations.isNotEmpty()) return true
+        if (args.any { it.second.isNotEmpty() }) return true
+        return resolvedArgs.any { it.first is AnnotatedString }
+    }
+
     internal class Raw(private val text: CharSequence) : UIText() {
         override fun build(context: Context): CharSequence {
             return text
@@ -78,13 +88,17 @@ public sealed class UIText : UITextBase {
     ) : UIText() {
 
         override fun build(context: Context): CharSequence {
+            if (args.isEmpty() && baseAnnotations.isEmpty()) {
+                return context.getString(resId)
+            }
             val resolvedArgs = args.map {
                 resolveArg(context, it.first) to it.second
             }
-            val annotated = baseAnnotations.isNotEmpty() ||
-                    args.any { it.second.isNotEmpty() } ||
-                    resolvedArgs.any { it.first is AnnotatedString }
-
+            val annotated = hasAnnotations(
+                args = args,
+                resolvedArgs = resolvedArgs,
+                baseAnnotations = baseAnnotations
+            )
             return if (annotated) {
                 UITextUtil.buildAnnotatedStringWithAndroidStringResourceRules(
                     resolvedArgs = resolvedArgs,
@@ -94,7 +108,10 @@ public sealed class UIText : UITextBase {
                     }
                 )
             } else if (resolvedArgs.isNotEmpty()) {
-                context.getString(resId, *resolvedArgs.map { it.first }.toTypedArray())
+                val argValues = Array(resolvedArgs.size) { i -> 
+                    resolvedArgs[i].first 
+                }
+                context.getString(resId, *argValues)
             } else {
                 context.getString(resId)
             }
@@ -109,13 +126,17 @@ public sealed class UIText : UITextBase {
     ) : UIText() {
 
         override fun build(context: Context): CharSequence {
+            if (args.isEmpty() && baseAnnotations.isEmpty()) {
+                return context.resources.getQuantityString(resId, quantity)
+            }
             val resolvedArgs = args.map {
                 resolveArg(context, it.first) to it.second
             }
-            val annotated = baseAnnotations.isNotEmpty() ||
-                    args.any { it.second.isNotEmpty() } ||
-                    resolvedArgs.any { it.first is AnnotatedString }
-
+            val annotated = hasAnnotations(
+                args = args,
+                resolvedArgs = resolvedArgs,
+                baseAnnotations = baseAnnotations
+            )
             return if (annotated) {
                 UITextUtil.buildAnnotatedStringWithAndroidStringResourceRules(
                     resolvedArgs = resolvedArgs,
@@ -125,8 +146,10 @@ public sealed class UIText : UITextBase {
                     }
                 )
             } else if (resolvedArgs.isNotEmpty()) {
-                context.resources.getQuantityString(resId, quantity,
-                    *resolvedArgs.map { it.first }.toTypedArray())
+                val argValues = Array(resolvedArgs.size) { i -> 
+                    resolvedArgs[i].first 
+                }
+                context.resources.getQuantityString(resId, quantity, *argValues)
             } else {
                 context.resources.getQuantityString(resId, quantity)
             }
@@ -137,8 +160,14 @@ public sealed class UIText : UITextBase {
         private val components: List<UIText>
     ) : UIText() {
         override fun build(context: Context): CharSequence {
+            if (components.isEmpty()) {
+                return ""
+            }
+            if (components.size == 1) {
+                return components[0].build(context)
+            }
             val resolvedComponents = components.map { it.build(context) }
             return UITextUtil.concat(resolvedComponents)
         }
     }
-} 
+}
