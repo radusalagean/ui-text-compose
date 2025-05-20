@@ -1,3 +1,5 @@
+![](ui-text-compose.png)
+
 [![Maven Central](https://img.shields.io/maven-central/v/com.radusalagean/ui-text-compose?color=green&logoColor=green)](https://search.maven.org/artifact/com.radusalagean/ui-text-compose)
 
 # UIText Compose
