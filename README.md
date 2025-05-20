@@ -197,7 +197,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
-![](<examples/res - annotated.png>)
+![](examples/res_annotated.png)
 
 ### Plural string resource - annotated
 Define:
@@ -215,7 +215,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
-![](<examples/pluralRes - annotated.png>)
+![](examples/pluralRes_annotated.png)
 
 ### Compound - example 1
 Define:
@@ -250,7 +250,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
-![](<examples/compound - example 1.png>)
+![](examples/compound_example_1.png)
 
 
 ### Compound - example 2
@@ -298,7 +298,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
-![](<examples/compound - example 2.png>)
+![](examples/compound_example_2.png)
 
 
 ### Compound - example 3
@@ -345,7 +345,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
-![](<examples/compound - example 3.png>)
+![](examples/compound_example_3.png)
 
 ### Terms of Service & Privacy Policy
 Define:
@@ -382,7 +382,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
-![](<examples/terms of service and privacy policy.png>)
+![](examples/terms_of_service_and_privacy_policy.png)
 
 ## Compatibility of string resources
 
