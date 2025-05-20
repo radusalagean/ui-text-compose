@@ -1,3 +1,5 @@
+[![Maven Central](https://img.shields.io/maven-central/v/com.radusalagean/ui-text-compose?color=green&logoColor=green)](https://search.maven.org/artifact/com.radusalagean/ui-text-compose)
+
 # UIText Compose
 
 A Kotlin Multiplatform library for creating text blueprints in Compose applications, supporting both plain and styled text with String Resources integration.
