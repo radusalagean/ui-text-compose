@@ -1,6 +1,14 @@
 ![](ui-text-compose.png)
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.radusalagean/ui-text-compose?color=green&logoColor=green)](https://search.maven.org/artifact/com.radusalagean/ui-text-compose)
+[![Maven Central](https://img.shields.io/maven-central/v/com.radusalagean/ui-text-compose-android?color=green&logoColor=green&label=ui-text-compose-android)](https://search.maven.org/artifact/com.radusalagean/ui-text-compose-android)
+[![Maven Central](https://img.shields.io/maven-central/v/com.radusalagean/ui-text-compose-multiplatform?color=green&logoColor=green&label=ui-text-compose-multiplatform)](https://search.maven.org/artifact/com.radusalagean/ui-text-compose-multiplatform)
+
+[![compose-mp-version](https://img.shields.io/badge/compose--multiplatform-1.8.0-blue)](https://github.com/JetBrains/compose-multiplatform)
+
+![badge-Android](https://img.shields.io/badge/Platform-Android-brightgreen)
+![badge-iOS](https://img.shields.io/badge/Platform-iOS-lightgray)
+![badge-JVM](https://img.shields.io/badge/Platform-JVM-orange)
+![badge-web](https://img.shields.io/badge/Platform-Web-blue)
 
 # UIText Compose
 
