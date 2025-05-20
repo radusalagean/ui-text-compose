@@ -10,9 +10,9 @@ The library provides a solution to a common problem: **ViewModels that directly 
 
 UIText Compose solves this by enabling:
 
-1. **Proper separation of text definition from rendering** - Create text blueprints (containing resource IDs, not resolved strings) in your ViewModels, mappers, or data layers, then pass them to composables for locale-aware rendering.
+1. **Proper separation of text definition from rendering** - Create text blueprints (containing resource IDs, not resolved strings) in your ViewModels, mappers, etc. - then pass them to composables for locale-aware rendering.
 
-2. **Automatic adaptation to configuration changes** - UIText instances automatically update when the locale or other configuration changes, ensuring your app is fully localized.
+2. **Automatic adaptation to locale changes** - UIText instances automatically update when the locale changes, ensuring your app is fully localized.
 
 3. **Rich styling and formatting** - Add spans, paragraph styles, and link annotations to your text while maintaining the proper architecture.
 
@@ -141,6 +141,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildStringComposable())
 ```
+![](examples/raw.png)
 
 ### String resource
 Define:
@@ -155,6 +156,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildStringComposable())
 ```
+![](examples/res.png)
 
 ### Plural string resource
 Define:
@@ -167,6 +169,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildStringComposable())
 ```
+![](examples/pluralRes.png)
 
 ### String resource - annotated
 Define:
@@ -192,6 +195,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
+![](<examples/res - annotated.png>)
 
 ### Plural string resource - annotated
 Define:
@@ -209,6 +213,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
+![](<examples/pluralRes - annotated.png>)
 
 ### Compound - example 1
 Define:
@@ -243,6 +248,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
+![](<examples/compound - example 1.png>)
 
 
 ### Compound - example 2
@@ -290,6 +296,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
+![](<examples/compound - example 2.png>)
 
 
 ### Compound - example 3
@@ -336,6 +343,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
+![](<examples/compound - example 3.png>)
 
 ### Terms of Service & Privacy Policy
 Define:
@@ -372,6 +380,7 @@ Use in composable:
 ```kotlin
 Text(uiText.buildAnnotatedStringComposable())
 ```
+![](<examples/terms of service and privacy policy.png>)
 
 ## Compatibility of string resources
 
