@@ -31,9 +31,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":uitextcompose-core"))
-                implementation(compose.runtime)
-                implementation(compose.ui)
-                implementation(compose.components.resources)
+                api(compose.runtime)
+                api(compose.ui)
+                api(compose.components.resources)
             }
         }
         val desktopTest by getting {

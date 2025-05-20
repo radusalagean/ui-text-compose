@@ -21,9 +21,9 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 api(project(":uitextcompose-core"))
-                implementation(libs.androidx.annotation)
-                implementation(libs.androidx.compose.runtime)
-                implementation(libs.androidx.compose.ui)
+                api(libs.androidx.annotation)
+                api(libs.androidx.compose.runtime)
+                api(libs.androidx.compose.ui)
             }
         }
         val androidInstrumentedTest by getting {
