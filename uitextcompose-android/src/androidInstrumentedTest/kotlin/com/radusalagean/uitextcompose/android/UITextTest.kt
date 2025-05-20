@@ -1,22 +1,22 @@
 package com.radusalagean.uitextcompose.android
 
 import android.content.Context
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.ParagraphStyle
-import androidx.compose.ui.text.LinkAnnotation
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withLink
+import androidx.compose.ui.text.withStyle
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.radusalagean.uitextcompose.android.test.R
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import com.radusalagean.uitextcompose.android.test.R
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.runner.RunWith
 import kotlin.test.assertEquals
 
@@ -597,6 +597,449 @@ class UITextTest {
                     append("test items")
                 }
             }
+        }
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun res_with_mixed_placeholders_1() = runTest {
+        // Given
+        val uiText = UIText {
+            res(R.string.test_res_with_mixed_placeholders_1) {
+                arg("a")
+                arg("b")
+            }
+        }
+        
+        // When
+        val result = uiText.buildString(context)
+        
+        // Then
+        assertEquals("1: a 2: a 3: b", result)
+    }
+
+    @Test
+    fun res_with_mixed_placeholders_1_annotated() = runTest {
+        // Given
+        val redStyle = SpanStyle(color = Color.Red)
+        val uiText = UIText {
+            res(R.string.test_res_with_mixed_placeholders_1) {
+                arg("a") {
+                    +redStyle
+                }
+                arg("b")
+            }
+        }
+
+        // When
+        val result = uiText.buildAnnotatedString(context)
+
+        // Then
+        val expected = buildAnnotatedString {
+            append("1: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 2: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 3: b")
+        }
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun res_with_mixed_placeholders_2() = runTest {
+        // Given
+        val uiText = UIText {
+            res(R.string.test_res_with_mixed_placeholders_2) {
+                arg("a")
+                arg("b")
+                arg("c")
+            }
+        }
+        
+        // When
+        val result = uiText.buildString(context)
+        
+        // Then
+        assertEquals("1: b 2: a 3: a 4: a 5: c 6: b", result)
+    }
+
+    @Test
+    fun res_with_mixed_placeholders_2_annotated() = runTest {
+        // Given
+        val redStyle = SpanStyle(color = Color.Red)
+        val uiText = UIText {
+            res(R.string.test_res_with_mixed_placeholders_2) {
+                arg("a")
+                arg("b")
+                arg("c") {
+                    +redStyle
+                }
+            }
+        }
+
+        // When
+        val result = uiText.buildAnnotatedString(context)
+
+        // Then
+        val expected = buildAnnotatedString {
+            append("1: b 2: a 3: a 4: a 5: ")
+            withStyle(redStyle) {
+                append("c")
+            }
+            append(" 6: b")
+        }
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun res_with_mixed_placeholders_and_some_escaped() = runTest {
+        // Given
+        val uiText = UIText {
+            res(R.string.test_res_with_mixed_placeholders_and_some_escaped) {
+                arg("a")
+                arg("b")
+                arg("c")
+            }
+        }
+
+        // When
+        val result = uiText.buildString(context)
+
+        // Then
+        assertEquals("1: %2\$s 2: a 3: a 4: %s 5: c 6: a", result)
+    }
+
+    @Test
+    fun res_with_mixed_placeholders_and_some_escaped_annotated() = runTest {
+        // Given
+        val redStyle = SpanStyle(color = Color.Red)
+        val uiText = UIText {
+            res(R.string.test_res_with_mixed_placeholders_and_some_escaped) {
+                arg("a") {
+                    +redStyle
+                }
+                arg("b")
+                arg("c")
+            }
+        }
+
+        // When
+        val result = uiText.buildAnnotatedString(context)
+
+        // Then
+        val expected = buildAnnotatedString {
+            append("1: %2\$s 2: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 3: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 4: %s 5: c 6: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+        }
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_1_single() = runTest {
+        // Given
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_1, 1) {
+                arg("a")
+                arg("b")
+            }
+        }
+        
+        // When
+        val result = uiText.buildString(context)
+        
+        // Then
+        assertEquals("1: a 2: a 3: b item", result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_1_multiple() = runTest {
+        // Given
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_1, 5) {
+                arg("a")
+                arg("b")
+            }
+        }
+        
+        // When
+        val result = uiText.buildString(context)
+        
+        // Then
+        assertEquals("1: a 2: a 3: b items", result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_1_annotated_single() = runTest {
+        // Given
+        val redStyle = SpanStyle(color = Color.Red)
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_1, 1) {
+                arg("a") {
+                    +redStyle
+                }
+                arg("b")
+            }
+        }
+
+        // When
+        val result = uiText.buildAnnotatedString(context)
+
+        // Then
+        val expected = buildAnnotatedString {
+            append("1: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 2: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 3: b item")
+        }
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_1_annotated_multiple() = runTest {
+        // Given
+        val redStyle = SpanStyle(color = Color.Red)
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_1, 5) {
+                arg("a") {
+                    +redStyle
+                }
+                arg("b")
+            }
+        }
+
+        // When
+        val result = uiText.buildAnnotatedString(context)
+
+        // Then
+        val expected = buildAnnotatedString {
+            append("1: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 2: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 3: b items")
+        }
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_2_single() = runTest {
+        // Given
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_2, 1) {
+                arg("a")
+                arg("b")
+                arg("c")
+            }
+        }
+        
+        // When
+        val result = uiText.buildString(context)
+        
+        // Then
+        assertEquals("1: b 2: a 3: a 4: a 5: c 6: b item", result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_2_multiple() = runTest {
+        // Given
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_2, 5) {
+                arg("a")
+                arg("b")
+                arg("c")
+            }
+        }
+        
+        // When
+        val result = uiText.buildString(context)
+        
+        // Then
+        assertEquals("1: b 2: a 3: a 4: a 5: c 6: b items", result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_2_annotated_single() = runTest {
+        // Given
+        val redStyle = SpanStyle(color = Color.Red)
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_2, 1) {
+                arg("a")
+                arg("b")
+                arg("c") {
+                    +redStyle
+                }
+            }
+        }
+
+        // When
+        val result = uiText.buildAnnotatedString(context)
+
+        // Then
+        val expected = buildAnnotatedString {
+            append("1: b 2: a 3: a 4: a 5: ")
+            withStyle(redStyle) {
+                append("c")
+            }
+            append(" 6: b item")
+        }
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_2_annotated_multiple() = runTest {
+        // Given
+        val redStyle = SpanStyle(color = Color.Red)
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_2, 5) {
+                arg("a")
+                arg("b")
+                arg("c") {
+                    +redStyle
+                }
+            }
+        }
+
+        // When
+        val result = uiText.buildAnnotatedString(context)
+
+        // Then
+        val expected = buildAnnotatedString {
+            append("1: b 2: a 3: a 4: a 5: ")
+            withStyle(redStyle) {
+                append("c")
+            }
+            append(" 6: b items")
+        }
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_and_some_escaped_single() = runTest {
+        // Given
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_and_some_escaped, 1) {
+                arg("a")
+                arg("b")
+                arg("c")
+            }
+        }
+
+        // When
+        val result = uiText.buildString(context)
+
+        // Then
+        assertEquals("1: %2\$s 2: a 3: a 4: %s 5: c 6: a item", result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_and_some_escaped_multiple() = runTest {
+        // Given
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_and_some_escaped, 5) {
+                arg("a")
+                arg("b")
+                arg("c")
+            }
+        }
+
+        // When
+        val result = uiText.buildString(context)
+
+        // Then
+        assertEquals("1: %2\$s 2: a 3: a 4: %s 5: c 6: a items", result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_and_some_escaped_annotated_single() = runTest {
+        // Given
+        val redStyle = SpanStyle(color = Color.Red)
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_and_some_escaped, 1) {
+                arg("a") {
+                    +redStyle
+                }
+                arg("b")
+                arg("c")
+            }
+        }
+
+        // When
+        val result = uiText.buildAnnotatedString(context)
+
+        // Then
+        val expected = buildAnnotatedString {
+            append("1: %2\$s 2: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 3: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 4: %s 5: c 6: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" item")
+        }
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun plural_with_mixed_placeholders_and_some_escaped_annotated_multiple() = runTest {
+        // Given
+        val redStyle = SpanStyle(color = Color.Red)
+        val uiText = UIText {
+            pluralRes(R.plurals.test_plural_with_mixed_placeholders_and_some_escaped, 5) {
+                arg("a") {
+                    +redStyle
+                }
+                arg("b")
+                arg("c")
+            }
+        }
+
+        // When
+        val result = uiText.buildAnnotatedString(context)
+
+        // Then
+        val expected = buildAnnotatedString {
+            append("1: %2\$s 2: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 3: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" 4: %s 5: c 6: ")
+            withStyle(redStyle) {
+                append("a")
+            }
+            append(" items")
         }
         assertEquals(expected, result)
     }

@@ -19,9 +19,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.radusalagean.uitextcompose.multiplatform.sample.ui.component.Section
-import org.jetbrains.compose.resources.stringResource
 import com.radusalagean.uitextcompose.multiplatform.sample.ui.component.ExampleEntry
+import com.radusalagean.uitextcompose.multiplatform.sample.ui.component.Section
+import org.jetbrains.compose.resources.rememberResourceEnvironment
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import ui_text_compose.uitextcompose_multiplatform_sample.generated.resources.Res
 import ui_text_compose.uitextcompose_multiplatform_sample.generated.resources.app_name
@@ -33,7 +34,8 @@ fun MainScreen(
     modifier: Modifier = Modifier,
     languagePickerEnabled: Boolean = true
 ) {
-    LaunchedEffect(Unit) {
+    val resourceEnvironment = rememberResourceEnvironment()
+    LaunchedEffect(resourceEnvironment) {
         viewModel.syncSelectedLanguage()
     }
     MaterialTheme {

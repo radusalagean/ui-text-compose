@@ -16,6 +16,11 @@
 /build
 /buildSrc/build/
 **/build/
+.cxx/
+output.json
+
+# === Android Profiling ===
+*.hprof
 
 # === OS-specific files ===
 .DS_Store
@@ -45,3 +50,6 @@ fabric.properties
 # === Kotlin/Jetpack Compose build cache ===
 /.kotlinc/
 .kotlin
+
+# === Google Services (e.g. APIs or Firebase) ===
+google-services.json

@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.binaryCompatibilityValidator)
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
@@ -30,9 +31,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":uitextcompose-core"))
-                implementation(compose.runtime)
-                implementation(compose.ui)
-                implementation(compose.components.resources)
+                api(compose.runtime)
+                api(compose.ui)
+                api(compose.components.resources)
             }
         }
         val desktopTest by getting {

@@ -15,8 +15,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.radusalagean.uitextcompose.android.sample.R
@@ -29,6 +31,10 @@ fun MainScreen(
     viewModel: MainViewModel,
     modifier: Modifier = Modifier
 ) {
+    val localConfiguration = LocalConfiguration.current
+    LaunchedEffect(localConfiguration) {
+        viewModel.syncSelectedLanguage()
+    }
     MaterialTheme {
         Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
             Column(Modifier.fillMaxSize().padding(innerPadding)) {

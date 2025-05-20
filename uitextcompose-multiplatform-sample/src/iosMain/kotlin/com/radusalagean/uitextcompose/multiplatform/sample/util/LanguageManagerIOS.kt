@@ -9,8 +9,7 @@ import platform.UIKit.UIApplicationOpenSettingsURLString
 
 class LanguageManagerIOS : LanguageManager {
     override fun getCurrentLanguageCode(): String {
-        val code = NSLocale.currentLocale.languageCode()
-        return code
+        return NSLocale.currentLocale.languageCode()
     }
 
     override fun onLanguageSelected(code: String) {

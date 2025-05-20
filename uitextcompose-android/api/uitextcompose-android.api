@@ -1,0 +1,27 @@
+public abstract class com/radusalagean/uitextcompose/android/UIText : com/radusalagean/uitextcompose/core/UITextBase {
+	public static final field $stable I
+	protected abstract fun build (Landroid/content/Context;)Ljava/lang/CharSequence;
+	public final fun buildAnnotatedString (Landroid/content/Context;)Landroidx/compose/ui/text/AnnotatedString;
+	public fun buildAnnotatedStringComposable (Landroidx/compose/runtime/Composer;I)Landroidx/compose/ui/text/AnnotatedString;
+	public final fun buildString (Landroid/content/Context;)Ljava/lang/String;
+	public fun buildStringComposable (Landroidx/compose/runtime/Composer;I)Ljava/lang/String;
+	protected final fun hasAnnotations (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Z
+	protected final fun resolveArg (Landroid/content/Context;Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/radusalagean/uitextcompose/android/UITextBuilder : com/radusalagean/uitextcompose/core/UITextBuilderBase {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun build ()Lcom/radusalagean/uitextcompose/android/UIText;
+	public synthetic fun build ()Ljava/lang/Object;
+	public final fun pluralRes (IILkotlin/jvm/functions/Function1;)V
+	public static synthetic fun pluralRes$default (Lcom/radusalagean/uitextcompose/android/UITextBuilder;IILkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public fun raw (Ljava/lang/CharSequence;)V
+	public final fun res (ILkotlin/jvm/functions/Function1;)V
+	public static synthetic fun res$default (Lcom/radusalagean/uitextcompose/android/UITextBuilder;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
+public final class com/radusalagean/uitextcompose/android/UITextBuilderKt {
+	public static final fun UIText (Lkotlin/jvm/functions/Function1;)Lcom/radusalagean/uitextcompose/android/UIText;
+}
+
