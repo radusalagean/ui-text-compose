@@ -35,7 +35,7 @@ dependencies {
 ```xml
 <resources>
     <string name="greeting">Hi, %1$s!</string>
-<resources>
+</resources>
 ```
 
 3. Import the necessary classes:
@@ -82,7 +82,7 @@ commonMain.dependencies {
 ```xml
 <resources>
     <string name="greeting">Hi, %1$s!</string>
-<resources>
+</resources>
 ```
 
 3. Import the necessary classes:
