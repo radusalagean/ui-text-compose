@@ -489,7 +489,7 @@ pluralRes(R.plurals.items_count, 5) {
 ### Arguments
 
 Types of args supported:
-- `CharSequence` - for example: `String` or `AnnitatedString`
+- `CharSequence` - for example: `String` or `AnnotatedString`
 - other `UIText` instances
 
 ### Styling
