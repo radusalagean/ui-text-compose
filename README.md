@@ -26,12 +26,14 @@ This approach follows the best practice recommended by the Android team: exposin
 
 ## Getting Started
 
-### For Android-only projects or Android modules in KMP projects
+### Option 1: Android string resources
+
+Pick this option if you use [Android string resources](https://developer.android.com/guide/topics/resources/string-resource) in your project.
 
 1. Add the dependency to your module's build.gradle.kts:
 ```kotlin
 dependencies {
-    implementation("com.radusalagean:uitextcompose-android:1.0.0")
+    implementation("com.radusalagean:ui-text-compose-android:1.0.0")
 }
 ```
 
@@ -65,7 +67,9 @@ fun MyScreen(viewModel: MyViewModel) {
 }
 ```
 
-### For Compose Multiplatform projects with shared UI (KMP Projects)
+### Option 2: Compose Multiplatform string resources
+
+Pick this option if you use [Compose Multiplatform string resources](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-resources-usage.html#strings) in your project.
 
 #### Compatible platforms:
 - Android
@@ -78,7 +82,7 @@ fun MyScreen(viewModel: MyViewModel) {
 1. Add the dependency to your module's build.gradle.kts:
 ```kotlin
 commonMain.dependencies {
-    implementation("com.radusalagean:uitextcompose-multiplatform:1.0.0")
+    implementation("com.radusalagean:ui-text-compose-multiplatform:1.0.0")
 }
 ```
 
@@ -407,8 +411,8 @@ It supports:
 
 ## Supported placeholders for string resources
 
-- **uitextcompose-android**: `%s` (unnumbered) and `%1$s`, `%2$s`, ... (numbered) string placeholders
-- **uitextcompose-multiplatform**: `%1$s`, `%2$s`, ... (numbered) string placeholders
+- **ui-text-compose-android**: `%s` (unnumbered) and `%1$s`, `%2$s`, ... (numbered) string placeholders
+- **ui-text-compose-multiplatform**: `%1$s`, `%2$s`, ... (numbered) string placeholders
 
 ## API Description
 
@@ -431,8 +435,8 @@ interface UITextBase {
 #### UIText
 
 The main class that implements `UITextBase`. There are two implementations:
-- `com.radusalagean.uitextcompose.android.UIText` - For Android projects or Android modules in KMP projects
-- `com.radusalagean.uitextcompose.multiplatform.UIText` - For Compose Multiplatform projects with shared UI
+- `com.radusalagean.uitextcompose.android.UIText` - For Android string resources
+- `com.radusalagean.uitextcompose.multiplatform.UIText` - For Compose Multiplatform string resources
 
 
 **Represents the blueprint, which is used by your composables to build the strings.**
